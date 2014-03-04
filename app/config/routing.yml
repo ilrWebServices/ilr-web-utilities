@@ -1,0 +1,4 @@
+ilr_profiles_generate:
+    resource: "@ILRProfilesGenerateBundle/Resources/config/routing.yml"
+    prefix:   /
+
