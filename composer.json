@@ -43,7 +43,19 @@
         "symfony-web-dir": "web",
         "symfony-assets-install": "symlink",
         "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+          "env-map": {
+            "ai_api_url": "AI_API_URL",
+            "ai_userid": "AI_USERID",
+            "ai_pwd": "AI_PWD",
+            "ldap_start": "LDAP_START",
+            "ldap_filter": "LDAP_FILTER",
+            "ldap_server": "LDAP_SERVER",
+            "ldap_port": "LDAP_PORT",
+            "ilr_directory_legacy_data_feed": "ILR_DIRECTORY_LEGACY_DATA_FEED",
+            "aws_bucket": "AWS_BUCKET",
+            "aws_key": "AWS_KEY",
+            "aws_secret": "AWS_SECRET"
+          }
         },
         "branch-alias": {
             "dev-master": "2.4-dev"
