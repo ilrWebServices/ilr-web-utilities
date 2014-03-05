@@ -1,0 +1,24 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale:            en
+    secret: DeMelloTriesSymfony
+    ldap_start:        ou=people,o=cornell university,c=us
+    ldap_filter:       (|(uid=hck2)(uid=cjm267)(cornelledudeptname1=LIBR - Catherwood*)(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))
+    ai_api_url: ~
+    ai_userid: ~
+    ai_pwd: ~
+    ldap_server: ~
+    ldap_port: ~
+    ilr_directory_legacy_data_feed: ~
+    aws_bucket: ~
+    aws_key: ~
+    aws_secret: ~
