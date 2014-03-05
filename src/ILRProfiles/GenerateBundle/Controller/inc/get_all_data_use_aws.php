@@ -61,9 +61,10 @@ set_perms($client, $aws_bucket, 'legacy_ilr_directory_HTML.xml');
 
 $raw_xml = '<?xml version="1.0" encoding="UTF-8"?>
 <Data xmlns="http://www.digitalmeasures.com/schema/data" xmlns:dmd="http://www.digitalmeasures.com/schema/data-metadata" dmd:date="2014-01-14">';
-
+$count = 0;
 // For each person returned by the ldap query, Append appropriate xml to xml/ilr_people.xml
 foreach( $ldap as $person) {
+  $count += 1;
   if ($person['uid'][0] != '') {
     //   Try to get person info from Activity Insights
     $ai_data = get_ai_person($person['uid'][0]);
@@ -79,6 +80,7 @@ foreach( $ldap as $person) {
     }
   }
 }
+$raw_xml .= '<recordcount>' . $count . '</recordcount>';
 
 // Close the Data tag in the main xml file
 // file_put_contents('xml/ilr_people.xml', '</Data>', FILE_APPEND);
