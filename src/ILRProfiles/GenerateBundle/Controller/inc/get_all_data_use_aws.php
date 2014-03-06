@@ -41,6 +41,7 @@ foreach( array(
   'ilr_profiles_feed.xml',
   'ldap.xml',
   'legacy_ilr_directory_HTML.xml',
+  'ilr_profiles_raw_ai_data.xml',
   ) as $out_file) {
   if (file_exists("s3://{$aws_bucket}/" . $out_file)) {
     unlink("s3://{$aws_bucket}/" . $out_file);
@@ -58,10 +59,12 @@ file_put_contents("s3://{$aws_bucket}/legacy_ilr_directory_HTML.xml", $ilrweb_da
 set_perms($client, $aws_bucket, 'legacy_ilr_directory_HTML.xml');
 
 /* Accumulate the AI data for all people in the ldap file. */
+$stream = fopen("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml", 'w');
 
-$raw_xml = '<?xml version="1.0" encoding="UTF-8"?>
-<Data xmlns="http://www.digitalmeasures.com/schema/data" xmlns:dmd="http://www.digitalmeasures.com/schema/data-metadata" dmd:date="2014-01-14">';
+fwrite($stream, '<?xml version="1.0" encoding="UTF-8"?>
+<Data xmlns="http://www.digitalmeasures.com/schema/data" xmlns:dmd="http://www.digitalmeasures.com/schema/data-metadata" dmd:date="2014-01-14">');
 $count = 0;
+$limit = 0;
 // For each person returned by the ldap query, Append appropriate xml to xml/ilr_people.xml
 foreach( $ldap as $person) {
   $count += 1;
@@ -71,20 +74,22 @@ foreach( $ldap as $person) {
 
     if ( $ai_data->statusCode == 200 ) {  // Activity Insight returned data for this person
       // Add Activity Insight data to the main XML document
-      // file_put_contents('xml/ilr_people.xml', get_ai_record_from_data($ai_data->responseData), FILE_APPEND);
-      $raw_xml .= get_ai_record_from_data($ai_data->responseData);
+      fwrite($stream, get_ai_record_from_data($ai_data->responseData));
+      $limit += 1;
     } else {
       // Add a placeholder Record to the main XML document with the userid
-      //file_put_contents('xml/ilr_people.xml', '<Record username="' . $person['uid'][0] . '" />', FILE_APPEND);
-      $raw_xml .= '<Record username="' . $person['uid'][0] . '" />';
+      fwrite($stream, '<Record username="' . $person['uid'][0] . '" />');
     }
   }
+  if ($limit > 10) {break;}
 }
-$raw_xml .= '<recordcount>' . $count . '</recordcount>';
 
-// Close the Data tag in the main xml file
-// file_put_contents('xml/ilr_people.xml', '</Data>', FILE_APPEND);
-$raw_xml .= '</Data>';
+fwrite($stream, '<recordcount>' . $count . '</recordcount></Data>');
+fclose($stream);
+set_perms($client, $aws_bucket, 'ilr_profiles_raw_ai_data.xml');
+
+// Retrieve to XML
+$raw_xml = file_get_contents("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml");
 
 // Run the XSLT transform on the main xml file, which will fold in the fields from lpad and legacy_ilr_directory_HTML
 $transformed_xml = "s3://{$aws_bucket}/ilr_profiles_feed.xml";
