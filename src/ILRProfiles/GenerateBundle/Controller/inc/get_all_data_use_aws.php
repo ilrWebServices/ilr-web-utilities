@@ -100,3 +100,6 @@ set_perms($client, $aws_bucket, 'ilr_profiles_feed.xml');
 addLogEvent($jobLog, "Final ILR Profiles data feed generated");
 
 $jobResults = displayLog($jobLog);
+$logFileName = 'feed-generator-report-' . date('Y-n-j-H-i-s', time()) . '.txt';
+file_put_contents("s3://{$aws_bucket}/{$logFileName}", $jobResults);
+set_perms($client, $aws_bucket, $logFileName);
