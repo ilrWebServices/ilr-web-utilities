@@ -275,3 +275,26 @@ function new_empty_xml_file($filename) {
 <Data xmlns="http://www.digitalmeasures.com/schema/data" xmlns:dmd="http://www.digitalmeasures.com/schema/data-metadata" dmd:date="2014-01-14">');
 }
 
+function addLogEvent(&$log, $message) {
+  $time = time();
+  $elapsed_time = count($log) > 0 ? $time - $log[count($log) - 1]['time'] : 0;
+  $log[] = array(
+    'message' => $message,
+    'time' => $time,
+    'elapsed_time' => $elapsed_time,
+  );
+  return true;
+}
+
+function displayLog($log) {
+  $result = "";
+  foreach ($log as $entry) {
+    $result .= date('D j/n/Y', $entry['time']) . ' ' . date('H:i:s', $entry['time']) . ': ' .
+      $entry['message'] .
+      ($entry['elapsed_time'] > 0 ? " in ({$entry['elapsed_time']} seconds)\n" : "\n");
+  }
+  $total_time = $log[count($log)-1]['time'] - $log[0]['time'];
+  $result .= "\nTotal execution time: {$total_time} seconds.\n";
+  return $result;
+}
+
