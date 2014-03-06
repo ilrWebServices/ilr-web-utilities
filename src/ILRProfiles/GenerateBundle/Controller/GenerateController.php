@@ -9,7 +9,9 @@ class GenerateController extends Controller
     public function indexAction($uid='')
     {
         require 'inc/ilr-faculty-data-conf.php';
+        $start_time = time();
         require 'inc/get_all_data_use_aws.php';
-        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('uid' => $uid));
+        $total_time = time() - $start_time;
+        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('time' => $total_time));
     }
 }
