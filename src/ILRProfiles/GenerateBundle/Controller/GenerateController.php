@@ -10,6 +10,6 @@ class GenerateController extends Controller
     {
         require 'inc/ilr-faculty-data-conf.php';
         require 'inc/get_all_data_use_aws.php';
-        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('jobResults' => $jobResults));
+        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
     }
 }

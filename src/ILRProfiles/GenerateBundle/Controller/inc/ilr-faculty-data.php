@@ -275,7 +275,7 @@ function new_empty_xml_file($filename) {
 <Data xmlns="http://www.digitalmeasures.com/schema/data" xmlns:dmd="http://www.digitalmeasures.com/schema/data-metadata" dmd:date="2014-01-14">');
 }
 
-function addLogEvent(&$log, $message) {
+function add_log_event(&$log, $message) {
   $time = time();
   $elapsed_time = count($log) > 0 ? $time - $log[count($log) - 1]['time'] : 0;
   $log[] = array(
@@ -286,7 +286,7 @@ function addLogEvent(&$log, $message) {
   return true;
 }
 
-function displayLog($log) {
+function display_log($log) {
   $result = "";
   foreach ($log as $entry) {
     $result .= date('D j/n/Y', $entry['time']) . ' ' . date('H:i:s', $entry['time']) . ': ' .

@@ -48,19 +48,19 @@ foreach( array(
   }
 }
 
-$jobLog = array();
-addLogEvent($jobLog, "Job begun");
+$job_log = array();
+add_log_event($job_log, "Job begun");
 /* Build the feed of profiles from all data sources. */
 
 $ldap = get_ilr_people_from_ldap();
 file_put_contents("s3://{$aws_bucket}/ldap.xml", ldap2xml($ldap));
 set_perms($client, $aws_bucket, 'ldap.xml');
-addLogEvent($jobLog, "LDAP file created");
+add_log_event($job_log, "LDAP file created");
 
 $ilrweb_data = get_legacy_ilr_directory_info();
 file_put_contents("s3://{$aws_bucket}/legacy_ilr_directory_HTML.xml", $ilrweb_data);
 set_perms($client, $aws_bucket, 'legacy_ilr_directory_HTML.xml');
-addLogEvent($jobLog, "Legacy ILR Profile data collected");
+add_log_event($job_log, "Legacy ILR Profile data collected");
 
 /* Accumulate the AI data for all people in the ldap file. */
 $stream = fopen("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml", 'w');
@@ -88,7 +88,7 @@ foreach( $ldap as $person) {
 fwrite($stream, '<recordcount>' . $count . '</recordcount></Data>');
 fclose($stream);
 set_perms($client, $aws_bucket, 'ilr_profiles_raw_ai_data.xml');
-addLogEvent($jobLog, "Raw Activity Insight data collected");
+add_log_event($job_log, "Raw Activity Insight data collected");
 
 // Retrieve to XML
 $raw_xml = file_get_contents("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml");
@@ -97,9 +97,9 @@ $raw_xml = file_get_contents("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml");
 $transformed_xml = "s3://{$aws_bucket}/ilr_profiles_feed.xml";
 file_put_contents($transformed_xml, stripEmptyCDATA(xslt_transform($raw_xml, get_ilr_profiles_transform_xsl(), 'xml')));
 set_perms($client, $aws_bucket, 'ilr_profiles_feed.xml');
-addLogEvent($jobLog, "Final ILR Profiles data feed generated");
+add_log_event($job_log, "Final ILR Profiles data feed generated");
 
-$jobResults = displayLog($jobLog);
-$logFileName = 'feed-generator-report-' . date('Y-n-j-H-i-s', time()) . '.txt';
-file_put_contents("s3://{$aws_bucket}/{$logFileName}", $jobResults);
-set_perms($client, $aws_bucket, $logFileName);
+$job_results = display_log($job_log);
+$log_file_name = 'feed-generator-report-' . date('Y-n-j-H-i-s', time()) . '.txt';
+file_put_contents("s3://{$aws_bucket}/{$log_file_name}", $job_results);
+set_perms($client, $aws_bucket, $log_file_name);
