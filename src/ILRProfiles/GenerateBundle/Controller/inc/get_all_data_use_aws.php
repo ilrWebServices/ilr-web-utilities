@@ -6,13 +6,6 @@
 date_default_timezone_set('EST');
 
 require 'ilr-faculty-data.php';
-// require 'vendor/autoload.php';
-// require 'aws-sdk-conf.php';
-
-// if (! verify_configuration()) {
-//   echo "Error: Please ensure a complete configuration has been supplied for ilr-faculty-data.php.";
-//   exit();
-// }
 
 $aws_key = AWS_KEY;
 $aws_secret = AWS_SECRET;
@@ -27,6 +20,7 @@ $client = S3Client::factory(array(
 // Register the stream wrapper from an S3Client object
 $client->registerStreamWrapper();
 
+// Makes a file in an S3 bucket publicly readable.
 function set_perms(&$aws_Client, $bucket, $file_name) {
   $aws_Client->putObjectAcl(array(
     'Bucket'     => $bucket,
@@ -48,9 +42,9 @@ foreach( array(
   }
 }
 
+/* Build the feed of profiles from all data sources. */
 $job_log = array();
 add_log_event($job_log, "Job begun");
-/* Build the feed of profiles from all data sources. */
 
 $ldap = get_ilr_people_from_ldap();
 file_put_contents("s3://{$aws_bucket}/ldap.xml", ldap2xml($ldap));
