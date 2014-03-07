@@ -99,7 +99,8 @@ file_put_contents($transformed_xml, stripEmptyCDATA(xslt_transform($raw_xml, get
 set_perms($client, $aws_bucket, 'ilr_profiles_feed.xml');
 add_log_event($job_log, "Final ILR Profiles data feed generated");
 
-$job_results = display_log($job_log);
+$ip_tracking = !empty($_SERVER['REMOTE_ADDR']) ? "(requested from IP: {$_SERVER['REMOTE_ADDR']})" : '(from local CLI script execution)';
+$job_results = "Results of aggregation of ILR faculty and staff profile data {$ip_tracking}:\n" . display_log($job_log);
 $log_file_name = 'feed-generator-report-' . date('Y-n-j-H-i-s', time()) . '.txt';
 file_put_contents("s3://{$aws_bucket}/{$log_file_name}", $job_results);
 set_perms($client, $aws_bucket, $log_file_name);
