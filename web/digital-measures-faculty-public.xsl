@@ -74,29 +74,17 @@
               </xsl:text>
 
               <teaching_statement>
-                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-                  <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH"/>
-                <xsl:text disable-output-escaping="yes">]]</xsl:text>
-                <xsl:text disable-output-escaping="yes">>
-                </xsl:text>
+                <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH"/>
               </teaching_statement><xsl:text>
               </xsl:text>
 
               <research_statement>
-                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-                  <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH"/>
-                <xsl:text disable-output-escaping="yes">]]</xsl:text>
-                <xsl:text disable-output-escaping="yes">>
-                </xsl:text>
+                <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH"/>
               </research_statement><xsl:text>
               </xsl:text>
 
               <research_statement_short>
-                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-                  <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT"/>
-                <xsl:text disable-output-escaping="yes">]]</xsl:text>
-                <xsl:text disable-output-escaping="yes">>
-                </xsl:text>
+                <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT"/>
               </research_statement_short><xsl:text>
               </xsl:text>
 
@@ -592,18 +580,36 @@
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH">
-    <xsl:apply-templates/><xsl:text>
-    </xsl:text>
+    <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
+      <xsl:apply-templates/><xsl:text>
+      </xsl:text>
+      <xsl:text disable-output-escaping="yes">]]</xsl:text>
+      <xsl:text disable-output-escaping="yes">>
+      </xsl:text>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH">
-    <xsl:apply-templates/><xsl:text>
-    </xsl:text>
+    <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
+      <xsl:apply-templates/><xsl:text>
+      </xsl:text>
+      <xsl:text disable-output-escaping="yes">]]</xsl:text>
+      <xsl:text disable-output-escaping="yes">>
+      </xsl:text>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT">
-    <xsl:apply-templates/><xsl:text>
-    </xsl:text>
+    <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
+      <xsl:apply-templates/><xsl:text>
+      </xsl:text>
+      <xsl:text disable-output-escaping="yes">]]</xsl:text>
+      <xsl:text disable-output-escaping="yes">>
+      </xsl:text>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="dm:OUTREACH_STATEMENT/dm:OUTREACH_STATEMENT_KEYWORD/dm:KEYWORD">
