@@ -74,17 +74,29 @@
               </xsl:text>
 
               <teaching_statement>
+                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                   <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH"/>
+                <xsl:text disable-output-escaping="yes">]]</xsl:text>
+                <xsl:text disable-output-escaping="yes">>
+                </xsl:text>
               </teaching_statement><xsl:text>
               </xsl:text>
 
               <research_statement>
+                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                   <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH"/>
+                <xsl:text disable-output-escaping="yes">]]</xsl:text>
+                <xsl:text disable-output-escaping="yes">>
+                </xsl:text>
               </research_statement><xsl:text>
               </xsl:text>
 
               <research_statement_short>
+                <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                   <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT"/>
+                <xsl:text disable-output-escaping="yes">]]</xsl:text>
+                <xsl:text disable-output-escaping="yes">>
+                </xsl:text>
               </research_statement_short><xsl:text>
               </xsl:text>
 
