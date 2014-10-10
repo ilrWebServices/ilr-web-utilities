@@ -581,6 +581,8 @@
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH">
     <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">
+      &lt;</xsl:text>
       <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
       <xsl:apply-templates/><xsl:text>
       </xsl:text>
@@ -592,6 +594,8 @@
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH">
     <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">
+      &lt;</xsl:text>
       <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
       <xsl:apply-templates/><xsl:text>
       </xsl:text>
@@ -603,6 +607,8 @@
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT">
     <xsl:if test=". != ''">
+      <xsl:text disable-output-escaping="yes">
+      &lt;</xsl:text>
       <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
       <xsl:apply-templates/><xsl:text>
       </xsl:text>
