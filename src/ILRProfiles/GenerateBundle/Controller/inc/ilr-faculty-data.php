@@ -3,16 +3,11 @@
 /**
  * @file
  * Functions for pulling data from ldap, Activity Insight, and legacy ilr web directory
- * @todo Add SimpleExcel via Composer dependencies
  * @todo Retrieve faculty leave from a Box file rather than storing it here which requires a redeployment when it changes
  *
  */
 
 // require 'ilr-faculty-data-conf.php';
-
-require_once('./SimpleExcel/SimpleExcel.php');
-
-use SimpleExcel\SimpleExcel;
 
 function verify_configuration() {
   $result = true;
@@ -195,11 +190,18 @@ function get_ilr_people_from_ldap() {
 }
 
 function get_faculty_leave() {
-  $excel = new SimpleExcel('CSV');
-  $excel->parser->loadFile('inc/faculty-leave.csv');
-  $faculty_leave = array_reverse($excel->parser->getField());
-  array_pop($faculty_leave);
-  $leave = Array();
+  $handle = fopen("faculty-leave.csv", "r");
+  $first_line = true;
+  $faculty_leave = Array();
+  if ($handle) {
+      while (($line = fgets($handle)) !== false) {
+        if (!$first_line) {
+          array_push($faculty_leave, explode(',', $line));
+        }
+        $first_line = false;
+      }
+  }
+  fclose($handle);
 
   foreach($faculty_leave as $faculty) {
     $leave[strtolower($faculty[0])] = Array("leave_start" => $faculty[6], "leave_end" => $faculty[7]);
