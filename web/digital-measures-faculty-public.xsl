@@ -382,6 +382,18 @@
     </ldap_profile_type>
   </xsl:template>
 
+  <xsl:template match="dm:ldap_leave_start">
+    <ldap_leave_start>
+    <xsl:apply-templates/>
+    </ldap_leave_start>
+  </xsl:template>
+
+  <xsl:template match="dm:ldap_leave_end">
+    <ldap_leave_end>
+    <xsl:apply-templates/>
+    </ldap_leave_end>
+  </xsl:template>
+
   <xsl:template match="dm:ilrweb_publications_type">
     <ilrweb_publications_type>
     <xsl:apply-templates/>
