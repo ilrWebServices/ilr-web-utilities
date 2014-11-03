@@ -10,7 +10,7 @@
 
 // require 'ilr-faculty-data-conf.php';
 
-require_once('SimpleExcel/SimpleExcel.php');
+require_once('./SimpleExcel/SimpleExcel.php');
 
 use SimpleExcel\SimpleExcel;
 
