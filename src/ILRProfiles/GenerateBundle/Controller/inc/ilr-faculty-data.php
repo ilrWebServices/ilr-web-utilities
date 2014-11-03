@@ -3,12 +3,14 @@
 /**
  * @file
  * Functions for pulling data from ldap, Activity Insight, and legacy ilr web directory
- *
+ * @todo Add SimpleExcel via Composer dependencies
+ * @todo Retrieve faculty leave from a Box file rather than storing it here which requires a redeployment when it changes
  *
  */
 
 // require 'ilr-faculty-data-conf.php';
 
+require_once('SimpleExcel/SimpleExcel.php');
 
 use SimpleExcel\SimpleExcel;
 
