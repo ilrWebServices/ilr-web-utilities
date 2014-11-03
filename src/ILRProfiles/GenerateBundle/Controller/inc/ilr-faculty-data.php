@@ -189,11 +189,35 @@ function get_ilr_people_from_ldap() {
   return get_ldap_info(LDAP_FILTER, explode(',', LDAP_ATTRIBUTES), LDAP_START);
 }
 
+function get_faculty_leave() {
+  use SimpleExcel\SimpleExcel;
+
+  $excel = new SimpleExcel('CSV');
+  $excel->parser->loadFile('inc/faculty-leave.csv');
+  $faculty_leave = array_reverse($excel->parser->getField());
+  array_pop($faculty_leave);
+  $leave = Array();
+
+  foreach($faculty_leave as $faculty) {
+    $leave[strtolower($faculty[0])] = Array("leave_start" => $faculty[6], "leave_end" => $faculty[7]);
+  }
+  return $leave;
+}
+
+function get_leave_for_one_faculty($faculty_leave_array, $netid) {
+  if (array_key_exists($faculty_leave_array, $netid)) {
+    $result = $faculty_leave_array[$netid];
+  } else {
+    $result = Array("leave_start" => '', "leave_end" => '');
+  }
+}
+
 function ldap2xml($ldap) {
   $result = array();
 
   if (count($ldap)) {
     $whiteLabels = array();
+    $faculty_leave = get_faculty_leave();
 
     // $whiteLabels['displayname'] = "ldap_display_name";
     // $whiteLabels['physicaldeliveryofficename'] = "ldap_campus_address";
@@ -261,6 +285,11 @@ function ldap2xml($ldap) {
           $profile_type = 'staff';
         }
         $result[] = "\t\t<ldap_profile_type>{$profile_type}</ldap_profile_type>";
+
+        $leave = get_leave_for_one_faculty($faculty_leave, $person['uid'][0]);
+        $result[] = "\t\t<ldap_leave_start>{$leave['leave_start']}</ldap_leave_start>";
+        $result[] = "\t\t<ldap_leave_end>{$leave['leave_end']}</ldap_leave_end>";
+
         $result[] = "\t</Record>";
       }
       }
