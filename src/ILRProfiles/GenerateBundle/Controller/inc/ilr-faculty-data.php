@@ -9,6 +9,9 @@
 
 // require 'ilr-faculty-data-conf.php';
 
+
+use SimpleExcel\SimpleExcel;
+
 function verify_configuration() {
   $result = true;
   $config_vars = array(
@@ -190,8 +193,6 @@ function get_ilr_people_from_ldap() {
 }
 
 function get_faculty_leave() {
-  use SimpleExcel\SimpleExcel;
-
   $excel = new SimpleExcel('CSV');
   $excel->parser->loadFile('inc/faculty-leave.csv');
   $faculty_leave = array_reverse($excel->parser->getField());
