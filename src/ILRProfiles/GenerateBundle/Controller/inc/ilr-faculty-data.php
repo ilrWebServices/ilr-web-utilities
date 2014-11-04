@@ -193,6 +193,7 @@ function get_faculty_leave() {
   $handle = fopen("faculty-leave.csv", "r");
   $first_line = true;
   $faculty_leave = Array();
+  $leave = Array();
   if ($handle) {
       while (($line = fgets($handle)) !== false) {
         if (!$first_line) {
@@ -210,11 +211,12 @@ function get_faculty_leave() {
 }
 
 function get_leave_for_one_faculty($faculty_leave_array, $netid) {
-  if (array_key_exists($faculty_leave_array, $netid)) {
+  if (array_key_exists($netid, $faculty_leave_array)) {
     $result = $faculty_leave_array[$netid];
   } else {
     $result = Array("leave_start" => '', "leave_end" => '');
   }
+  return $result;
 }
 
 function ldap2xml($ldap) {

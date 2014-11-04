@@ -35,7 +35,7 @@ foreach( array(
   'ilr_profiles_feed.xml',
   'ldap.xml',
   'legacy_ilr_directory_HTML.xml',
-  'ilr_profiles_raw_ai_data.xml',
+  //'ilr_profiles_raw_ai_data.xml',
   ) as $out_file) {
   if (file_exists("s3://{$aws_bucket}/" . $out_file)) {
     unlink("s3://{$aws_bucket}/" . $out_file);
