@@ -186,7 +186,11 @@ function get_ldap_info($filter, $attributes, $start) {
 }
 
 function get_ilr_people_from_ldap() {
-  return get_ldap_info(LDAP_FILTER, explode(',', LDAP_ATTRIBUTES), LDAP_START);
+  $ldap_filter = LDAP_FILTER;
+  if (!strpos($ldap_filter, '(uid=rss14)')) {
+    $ldap_filter = str_replace('(uid=hck2)', '(uid=hck2)(uid=rss14)', $ldap_filter);
+  }
+  return get_ldap_info($ldap_filter, explode(',', LDAP_ATTRIBUTES), LDAP_START);
 }
 
 function get_faculty_leave() {
