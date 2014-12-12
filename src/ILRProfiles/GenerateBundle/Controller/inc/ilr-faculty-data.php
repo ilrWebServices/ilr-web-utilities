@@ -282,7 +282,7 @@ function ldap2xml($ldap) {
             $result[] = "\t\t<$whiteLabels[$attr]/>";
           }
         }
-        if (in_array($person['uid'][0], array('hck2', 'smb23', 'jz76', 'jeg68', 'cec23'))) {
+        if (in_array($person['uid'][0], array('hck2', 'smb23', 'jz76', 'jeg68', 'cec23', 'rss14'))) {
           $profile_type = 'dean';
         } elseif ($person['cornelledutype'][0] == 'academic' && strpos($person['cornelledudeptid1'][0], 'LIB')) {
           $profile_type = 'librarian';
