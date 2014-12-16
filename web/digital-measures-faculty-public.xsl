@@ -777,7 +777,7 @@
   <xsl:template match="dm:INTELLCONT/dm:INTELLCONT_AUTH">
     <xsl:value-of select="dm:FNAME"/><xsl:text> </xsl:text>
     <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text>. </xsl:text></xsl:when></xsl:choose>
-    <xsl:value-of select="dm:LNAME"/><xsl:text>, </xsl:text>
+    <xsl:value-of select="dm:LNAME"/><xsl:when test="not(following-sibling::dm:INTELLCONT_JOURNAL/dm:INTELLCONT_AUTH)"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
   <xsl:template match="dm:INTELLCONT_JOURNAL">
@@ -786,7 +786,8 @@
       <li class="journal-article">
         <xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text>
         <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
-        <span class="title"><xsl:value-of select="dm:TITLE"/> </span>
+        <span class="title">
+          <xsl:value-of select="dm:TITLE"/>, </span>
         <span class="journal-title">
           <xsl:choose>
             <xsl:when test="dm:TITLE='Other'">
@@ -813,7 +814,7 @@
   <xsl:template match="dm:INTELLCONT_JOURNAL/dm:INTELLCONT_JOURNAL_AUTH">
     <xsl:value-of select="dm:FNAME"/><xsl:text> </xsl:text>
     <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text>. </xsl:text></xsl:when></xsl:choose>
-    <xsl:value-of select="dm:LNAME"/><xsl:text>, </xsl:text>
+    <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="not(following-sibling::dm:INTELLCONT_JOURNAL/dm:INTELLCONT_JOURNAL_AUTH)"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE">
