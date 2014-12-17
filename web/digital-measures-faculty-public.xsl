@@ -777,7 +777,7 @@
   <xsl:template match="dm:INTELLCONT/dm:INTELLCONT_AUTH">
     <xsl:value-of select="dm:FNAME"/><xsl:text> </xsl:text>
     <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text>. </xsl:text></xsl:when></xsl:choose>
-    <xsl:value-of select="dm:LNAME"/><xsl:when test="not(following-sibling::dm:INTELLCONT_JOURNAL/dm:INTELLCONT_AUTH)"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
+    <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="not(following-sibling::dm:INTELLCONT_JOURNAL/dm:INTELLCONT_AUTH)"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
   <xsl:template match="dm:INTELLCONT_JOURNAL">
@@ -786,8 +786,29 @@
       <li class="journal-article">
         <xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text>
         <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
-        <span class="title">
-          <xsl:value-of select="dm:TITLE"/>, </span>
+        <span class="title"><xsl:choose>
+            <xsl:when test="dm:URI_NUM != ''">
+              <xsl:choose>
+                <xsl:when test="dm:URI_TYPE='ARXIV'">
+                  <a href="http://arxiv.org/abs/{dm:URI_NUM}"><xsl:value-of select="dm:TITLE"/></a>
+                  <xsl:variable name="pub_id">(ARXIV:<xsl:value-of select="dm:URI_NUM"/>)</xsl:variable>
+                </xsl:when>
+                <xsl:when test="dm:URI_TYPE='DOI'">
+                  <a href="http://dx.doi.org/doi:{dm:URI_NUM}"><xsl:value-of select="dm:TITLE"/></a>
+                  <xsl:variable name="pub_id">(DOI:<xsl:value-of select="dm:URI_NUM"/>)</xsl:variable>
+                </xsl:when>
+                <xsl:when test="dm:URI_TYPE='Pubmed'">
+                  <a href="http://www.ncbi.nlm.nih.gov/pubmed/{dm:URI_NUM}"><xsl:value-of select="dm:TITLE"/></a>
+                  <xsl:variable name="pub_id">(Pubmed:<xsl:value-of select="dm:URI_NUM"/>)</xsl:variable>
+                </xsl:when>
+                <xsl:otherwise>
+                  <a href="{dm:URI_NUM}"><xsl:value-of select="dm:TITLE"/></a>
+                  <xsl:variable name="pub_id" />
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise><xsl:variable name="pub_id" />
+              <xsl:value-of select="dm:TITLE"/></xsl:otherwise></xsl:choose>, </span>
         <span class="journal-title">
           <xsl:choose>
             <xsl:when test="dm:TITLE='Other'">
@@ -803,7 +824,12 @@
             <xsl:text>(</xsl:text><xsl:value-of select="dm:ISSUE"/><xsl:text>)</xsl:text>
           </xsl:when>
         </xsl:choose>
-        <xsl:text>:</xsl:text><xsl:value-of select="dm:PAGENUM"/>.</span></li><xsl:text>
+        <xsl:text>:</xsl:text><xsl:value-of select="dm:PAGENUM"/>.</span><xsl:choose><xsl:when test="dm:URI_NUM != ''"><xsl:choose>
+          <xsl:when  test="dm:URI_TYPE='ARXIV'"> (ARXIV:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
+          <xsl:when  test="dm:URI_TYPE='DOI'"> (DOI:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
+          <xsl:when  test="dm:URI_TYPE='(Pubmed:'"> (Pubmed:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
+          <xsl:otherwise /></xsl:choose></xsl:when></xsl:choose>
+        </li><xsl:text>
       </xsl:text>
     </xsl:when>
     <xsl:otherwise>
