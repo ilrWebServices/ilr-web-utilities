@@ -826,7 +826,7 @@
         </xsl:choose>
         <xsl:text>:</xsl:text><xsl:value-of select="dm:PAGENUM"/>.</span><xsl:choose><xsl:when test="dm:URI_NUM != ''"><xsl:choose>
           <xsl:when  test="dm:URI_TYPE='ARXIV'"> (ARXIV:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
-          <xsl:when  test="dm:URI_TYPE='DOI'"> (DOI:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
+          <xsl:when  test="dm:URI_TYPE='DOI'"> (doi:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
           <xsl:when  test="dm:URI_TYPE='(Pubmed:'"> (Pubmed:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
           <xsl:otherwise /></xsl:choose></xsl:when></xsl:choose>
         </li><xsl:text>
