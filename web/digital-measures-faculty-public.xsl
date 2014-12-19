@@ -811,7 +811,7 @@
               <xsl:value-of select="dm:TITLE"/></xsl:otherwise></xsl:choose>, </span>
         <span class="journal-title">
           <xsl:choose>
-            <xsl:when test="dm:TITLE='Other'">
+            <xsl:when test="dm:JOURNAL_NAME='Other' or dm:JOURNAL_NAME_OTHER != ''">
               <xsl:value-of select="dm:JOURNAL_NAME_OTHER"/>
             </xsl:when>
             <xsl:otherwise>
@@ -819,12 +819,10 @@
             </xsl:otherwise>
           </xsl:choose>. </span>
         <span class="location"><xsl:value-of select="dm:VOLUME"/>
-        <xsl:choose>
-          <xsl:when test="dm:ISSUE != ''">
-            <xsl:text>(</xsl:text><xsl:value-of select="dm:ISSUE"/><xsl:text>)</xsl:text>
-          </xsl:when>
-        </xsl:choose>
-        <xsl:text>:</xsl:text><xsl:value-of select="dm:PAGENUM"/>.</span><xsl:choose><xsl:when test="dm:URI_NUM != ''"><xsl:choose>
+        <xsl:if test="dm:ISSUE != ''">
+          <xsl:text>(</xsl:text><xsl:value-of select="dm:ISSUE"/><xsl:text>)</xsl:text>
+        </xsl:if>
+        <xsl:if test="(dm:VOLUME != '' or dm:ISSUE != '') and dm:PAGENUM != ''"><xsl:text>:</xsl:text></xsl:if><xsl:if test="dm:PAGENUM != ''"><xsl:value-of select="dm:PAGENUM"/></xsl:if><xsl:if test="dm:ISSUE != '' or dm:PAGENUM != ''">.</xsl:if></span><xsl:choose><xsl:when test="dm:URI_NUM != ''"><xsl:choose>
           <xsl:when  test="dm:URI_TYPE='ARXIV'"> (ARXIV:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
           <xsl:when  test="dm:URI_TYPE='DOI'"> (doi:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
           <xsl:when  test="dm:URI_TYPE='(Pubmed:'"> (Pubmed:<xsl:value-of select="dm:URI_NUM"/>)</xsl:when>
@@ -892,16 +890,16 @@
       <xsl:choose>
       <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes' and dm:USER_REFERENCE_CREATOR='Yes'">
         <li class="publication">
-          <span class="title"><xsl:value-of select="dm:TITLE"/>. </span>
-          <span class="book-title"><xsl:value-of select="dm:BOOK_TITLE"/>. </span>
-          <span class="pubctyst"><xsl:value-of select="dm:PUBCTYST"/>: </span>
-          <span class="publisher"><xsl:value-of select="dm:PUBLISHER"/>, </span>
-          <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
-          <span class="authors"><xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text></span>
-          <span class="editors"><xsl:value-of select="dm:EDITORS"/>. </span>
-          <span class="pages">(<xsl:value-of select="dm:PAGENUM"/>)</span>
-          <span class="status">(<xsl:value-of select="dm:STATUS"/>)</span>
-          <span class="content-type">(<xsl:value-of select="dm:CONTYPE"/>)</span>
+          <xsl:if test="dm:TITLE !=''"><span class="title"><xsl:value-of select="dm:TITLE"/>. </span></xsl:if>
+          <xsl:if test="dm:BOOK_TITLE !=''">in <span class="book-title"><xsl:value-of select="dm:BOOK_TITLE"/>. </span></xsl:if>
+          <xsl:if test="dm:PUBCTYST !=''"><span class="pubctyst"><xsl:value-of select="dm:PUBCTYST"/>: </span></xsl:if>
+          <xsl:if test="dm:PUBLISHER !=''"><span class="publisher"><xsl:value-of select="dm:PUBLISHER"/>, </span></xsl:if>
+          <xsl:if test="dm:DTY_PUB !=''"><span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span></xsl:if>
+          <xsl:if test="dm:INTELLCONT_JOURNAL_AUTH !=''"><span class="authors"><xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text></span></xsl:if>
+          <xsl:if test="dm:EDITORS !=''"><span class="editors"><xsl:value-of select="dm:EDITORS"/>. </span></xsl:if>
+          <xsl:if test="dm:PAGENUM !=''"><span class="pages">(<xsl:value-of select="dm:PAGENUM"/>)</span></xsl:if>
+          <xsl:if test="dm:STATUS !=''"><span class="status">(<xsl:value-of select="dm:STATUS"/>)</span></xsl:if>
+          <xsl:if test="dm:CONTYPE !=''"><span class="content-type">(<xsl:value-of select="dm:CONTYPE"/>)</span></xsl:if>
         </li>
         <xsl:text>
         </xsl:text>
