@@ -238,7 +238,7 @@
   </xsl:template>
 
   <xsl:template match="dm:ADMIN/dm:DEP">
-    <xsl:if test="position() = 1">
+    <xsl:if test="position() = 1 and . != ''">
       <dept>
         <xsl:apply-templates/>
       </dept><xsl:text>
@@ -247,7 +247,7 @@
   </xsl:template>
 
   <xsl:template match="dm:ADMIN/dm:JOINT_APPT_DEP">
-    <xsl:if test="position() = 1">
+    <xsl:if test="position() = 1 and . != ''">
       <dept>
         <xsl:apply-templates/>
       </dept><xsl:text>
