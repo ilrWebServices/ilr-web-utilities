@@ -192,6 +192,7 @@
                   <xsl:text disable-output-escaping="yes">
                   &lt;</xsl:text>
                   <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
+                  <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']"/>
                   <ul class="articles">
                   <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
                     <xsl:sort order="descending" select="DTY_PUB"/>
@@ -217,7 +218,7 @@
                     <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
                     <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                     <ul class="links">
-                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE"/>
+                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER != 'Selected Works']"/>
                     </ul>
                     <xsl:text disable-output-escaping="yes">]]</xsl:text>
                     <xsl:text disable-output-escaping="yes">>
@@ -838,15 +839,27 @@
     <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="following-sibling::dm:INTELLCONT_JOURNAL_AUTH"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
-  <xsl:template match="dm:PCI/dm:PCI_WEBSITE">
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER != 'Selected Works']">
     <xsl:text>
     </xsl:text>
     <li class="link">
       <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
       <a href="{$hyperlink}">
-        <xsl:value-of select="dm:DESC"/>
+        <xsl:choose>
+        <xsl:when test="dm:DESC != ''">
+          <xsl:value-of select="dm:DESC" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="dm:WEBSITE" />
+        </xsl:otherwise>
+      </xsl:choose>
       </a>
     </li>
+  </xsl:template>
+
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
+    <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
+    <p class="selected_works"><a href="{$hyperlink}"><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /><xsl:text>'s selected works</xsl:text></a></p>
   </xsl:template>
 
   <xsl:template name="tail">
