@@ -9,6 +9,8 @@
 
   <xsl:output doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" encoding="UTF-8" method="xml" />
   <xsl:template match="dm:Data">
+    <xsl:variable name="ldap" select="document('https://s3.amazonaws.com/ILR_Profile_Data_Pull/ldap.xml')" />
+    <xsl:variable name="legacy" select="document('https://s3.amazonaws.com/ILR_Profile_Data_Pull/legacy_ilr_directory_HTML.xml')" />
     <faculty><xsl:text>
       </xsl:text>
       <xsl:for-each select="//dm:Record">
@@ -26,9 +28,9 @@
               </xsl:attribute><xsl:text>
               </xsl:text>
 
-              <xsl:apply-templates select="document('https://s3.amazonaws.com/ILR_Profile_Data_Pull/ldap.xml')//*[@username=$thisnetid]"/>
+              <xsl:apply-templates select="$ldap//*[@username=$thisnetid]"/>
 
-              <xsl:apply-templates select="document('https://s3.amazonaws.com/ILR_Profile_Data_Pull/legacy_ilr_directory_HTML.xml')//*[@username=$thisnetid]"/>
+              <xsl:apply-templates select="$legacy//*[@username=$thisnetid]"/>
 
               <netID>
                 <xsl:value-of select="@username"/>
@@ -41,8 +43,15 @@
               </xsl:text>
 
               <departments>
-                <xsl:apply-templates select="dm:ADMIN/dm:DEP"/>
-                <xsl:apply-templates select="dm:ADMIN/dm:JOINT_APPT_DEP"/>
+                <xsl:choose>
+                  <xsl:when test="$ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'faculty' and . != ''">
+                    <xsl:apply-templates select="dm:ADMIN/dm:DEP"/>
+                    <xsl:apply-templates select="dm:ADMIN/dm:JOINT_APPT_DEP"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <dept><xsl:value-of select="$ldap//*[@username=$thisnetid]/dm:ldap_department_name" /></dept>
+                  </xsl:otherwise>
+                </xsl:choose>
               </departments><xsl:text>
               </xsl:text>
 
@@ -351,17 +360,9 @@
     </ldap_employee_type>
   </xsl:template>
 
-  <xsl:template match="dm:ldap_department_name">
-    <ldap_department_name>
-    <xsl:apply-templates/>
-    </ldap_department_name>
-  </xsl:template>
+  <xsl:template match="dm:ldap_department_name" />
 
-  <xsl:template match="dm:ldap_department">
-    <ldap_department>
-    <xsl:apply-templates/>
-    </ldap_department>
-  </xsl:template>
+  <xsl:template match="dm:ldap_department" />
 
   <xsl:template match="dm:ldap_first_name">
     <ldap_first_name>

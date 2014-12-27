@@ -276,6 +276,20 @@ function ldap2xml($ldap) {
                   && ! empty($person['mailalternateaddress'][$j]) ) {
                 $thisVal = trim($person['mailalternateaddress'][$j]) . '@cornell.edu';
               }
+              if ($attr == 'cornelledudeptname1') {
+                switch ($person['cornelledudeptname1'][$j]) {
+                  case "Dean's Office":
+                    $thisVal = "ILR Dean's Office";
+                    break;
+
+                  case 'ILR -  Human Resources':
+                    $thisVal = "ILR - Human Resources";
+                    break;
+
+                  default:
+                    break;
+                }
+              }
               if (strlen($thisVal) > 0) {
                 $result[] = "\t\t<$whiteLabels[$attr]" . "$suffix>" . htmlspecialchars($thisVal, ENT_QUOTES, "UTF-8") . "</$whiteLabels[$attr]" . "$suffix>";
               } else {
