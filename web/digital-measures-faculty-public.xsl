@@ -42,9 +42,20 @@
               </userid><xsl:text>
               </xsl:text>
 
+              <ldap_working_title2>
+                <xsl:choose>
+                  <xsl:when test="$legacy//*[@username=$thisnetid]/dm:ilrweb_jobtitle != ''">
+                    <xsl:value-of select="$legacy//*[@username=$thisnetid]/dm:ilrweb_jobtitle"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$ldap//*[@username=$thisnetid]/dm:ldap_working_title2"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </ldap_working_title2>
+
               <departments>
                 <xsl:choose>
-                  <xsl:when test="$ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'faculty' and . != ''">
+                  <xsl:when test="($ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'faculty' or $ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'dean') and . != ''">
                     <xsl:apply-templates select="dm:ADMIN/dm:DEP"/>
                     <xsl:apply-templates select="dm:ADMIN/dm:JOINT_APPT_DEP"/>
                   </xsl:when>
@@ -342,11 +353,7 @@
     </ldap_working_title1>
   </xsl:template>
 
-  <xsl:template match="dm:ldap_working_title2">
-    <ldap_working_title2>
-    <xsl:apply-templates/>
-    </ldap_working_title2>
-  </xsl:template>
+  <xsl:template match="dm:ldap_working_title2" />
 
   <xsl:template match="dm:ldap_uid">
     <ldap_uid>
@@ -512,6 +519,8 @@
     </xsl:if>
     </ilrweb_vita_html>
   </xsl:template>
+
+  <xsl:template match="dm:ilrweb_jobtitle" />
 
   <xsl:template match="dm:ilrweb_photo_url">
     <ilrweb_photo_url>
