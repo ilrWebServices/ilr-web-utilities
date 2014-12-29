@@ -29,17 +29,18 @@ function set_perms(&$aws_Client, $bucket, $file_name) {
   ));
 }
 
-// Remove old copies of the output files in the S3 bucket
-foreach( array(
-  'ilr_people.xml',
-  'ilr_profiles_feed.xml',
-  'ldap.xml',
-  'legacy_ilr_directory_HTML.xml',
-  //'ilr_profiles_raw_ai_data.xml',
-  ) as $out_file) {
-  if (file_exists("s3://{$aws_bucket}/" . $out_file)) {
-    unlink("s3://{$aws_bucket}/" . $out_file);
+// Deletes a file in an S3 bucket.
+function delete_file($aws_bucket, $file_name) {
+  if (file_exists("s3://{$aws_bucket}/{$file_name}")) {
+    unlink("s3://{$aws_bucket}/{$file_name}");
   }
+}
+
+// Repalces a file in an S3 bucket with a new version.
+function replace_file(&$aws_Client, $aws_bucket, $file_name, $output) {
+  delete_file($aws_bucket, $file_name);
+  file_put_contents("s3://{$aws_bucket}/{$file_name}", $output);
+  set_perms($aws_Client, $aws_bucket, $file_name);
 }
 
 /* Build the feed of profiles from all data sources. */
@@ -47,16 +48,15 @@ $job_log = array();
 add_log_event($job_log, "Job begun");
 
 $ldap = get_ilr_people_from_ldap();
-file_put_contents("s3://{$aws_bucket}/ldap.xml", ldap2xml($ldap));
-set_perms($client, $aws_bucket, 'ldap.xml');
+replace_file($client, $aws_bucket, 'ldap.xml', ldap2xml($ldap));
 add_log_event($job_log, "LDAP file created");
 
 $ilrweb_data = get_legacy_ilr_directory_info();
-file_put_contents("s3://{$aws_bucket}/legacy_ilr_directory_HTML.xml", $ilrweb_data);
-set_perms($client, $aws_bucket, 'legacy_ilr_directory_HTML.xml');
+replace_file($client, $aws_bucket, 'legacy_ilr_directory_HTML.xml', $ilrweb_data);
 add_log_event($job_log, "Legacy ILR Profile data collected");
 
 /* Accumulate the AI data for all people in the ldap file. */
+delete_file($aws_bucket, "ilr_profiles_raw_ai_data.xml");
 $stream = fopen("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml", 'w');
 
 fwrite($stream, '<?xml version="1.0" encoding="UTF-8"?>
@@ -88,9 +88,7 @@ add_log_event($job_log, "Raw Activity Insight data collected");
 $raw_xml = file_get_contents("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml");
 
 // Run the XSLT transform on the main xml file, which will fold in the fields from lpad and legacy_ilr_directory_HTML
-$transformed_xml = "s3://{$aws_bucket}/ilr_profiles_feed.xml";
-file_put_contents($transformed_xml, stripEmptyCDATA(xslt_transform($raw_xml, get_ilr_profiles_transform_xsl(), 'xml')));
-set_perms($client, $aws_bucket, 'ilr_profiles_feed.xml');
+replace_file($client, $aws_bucket, 'ilr_profiles_feed.xml', stripEmptyCDATA(xslt_transform($raw_xml, get_ilr_profiles_transform_xsl(), 'xml')));
 add_log_event($job_log, "Final ILR Profiles data feed generated");
 
 $ip_tracking = !empty($_SERVER['REMOTE_ADDR']) ? "(requested from IP: {$_SERVER['REMOTE_ADDR']})" : '(from local CLI script execution)';
