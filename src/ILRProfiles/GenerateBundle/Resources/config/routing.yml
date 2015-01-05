@@ -10,6 +10,10 @@ ilr_profiles_generate_data_just_retransform:
     path:  /ilr_profiles_generate_data_retransform/
     defaults: { _controller: ILRProfilesGenerateBundle:Generate:retransform}
 
+ilr_profiles_dump_constants:
+    path:  /ilr_profiles_dump_constants/
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:dumpConstants}
+
 ilr_profiles_get_profile_data:
     path:  /ilr_profiles_get_profile_data/
     defaults: { _controller: ILRProfilesGenerateBundle:GetProfileData:index}
