@@ -189,9 +189,6 @@ function get_ldap_info($filter, $attributes, $start) {
   $ds=ldap_connect(LDAP_SERVER);
 
   if ($ds) {
-    // if ( !empty(LDAP_USERNAME) && !empty(LDAP_PASSWORD) ) {
-    //   $r=ldap_bind($ds, LDAP_USERNAME, LDAP_PASSWORD);
-    // }
     $sr=ldap_search($ds, $start, $filter, $attributes);
     $ret = ldap_get_entries($ds, $sr);
     ldap_close($ds);
@@ -201,13 +198,17 @@ function get_ldap_info($filter, $attributes, $start) {
   }
 }
 
+function run_ldap_query($filter) {
+  return get_ldap_info($filter, explode(',', LDAP_ATTRIBUTES), LDAP_START);
+}
+
 function get_ilr_people_from_ldap() {
   //$ldap_filter = LDAP_FILTER;
   $ldap_filter = '(|(uid=cl672)(uid=hck2)(uid=cjm267)(uid=rss14)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
   if (!strpos($ldap_filter, '(uid=rss14)')) {
     $ldap_filter = str_replace('(uid=hck2)', '(uid=hck2)(uid=rss14)', $ldap_filter);
   }
-  return get_ldap_info($ldap_filter, explode(',', LDAP_ATTRIBUTES), LDAP_START);
+  return run_ldap_query($ldap_filter);
 }
 
 function get_faculty_leave() {
@@ -246,20 +247,6 @@ function ldap2xml($ldap) {
   if (count($ldap)) {
     $whiteLabels = array();
     $faculty_leave = get_faculty_leave();
-
-    // $whiteLabels['displayname'] = "ldap_display_name";
-    // $whiteLabels['physicaldeliveryofficename'] = "ldap_campus_address";
-    // $whiteLabels['telephonenumber'] = "ldap_campus_phone";
-    // $whiteLabels['mail'] = "ldap_email";
-    // $whiteLabels['title'] = "ldap_working_title1";
-    // $whiteLabels['personaltitle'] = "ldap_working_title2";
-    // $whiteLabels['employeetype'] = "ldap_employee_type";
-    // $whiteLabels['department'] = "ldap_department";
-    // $whiteLabels['uid'] = "ldap_uid";
-    // $whiteLabels['sn'] = "ldap_last_name";
-    // $whiteLabels['givenname'] = "ldap_first_name";
-    // $whiteLabels['mailnickname'] = "ldap_mail_nickname";
-
 
     $whiteLabels['displayname'] = "ldap_display_name";
     $whiteLabels['cornelleducampusaddress'] = "ldap_campus_address";

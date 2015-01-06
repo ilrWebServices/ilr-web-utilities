@@ -74,4 +74,11 @@ class GenerateController extends Controller
         'ILR_DIRECTORY_LEGACY_DATA_FEED: ' . ILR_DIRECTORY_LEGACY_DATA_FEED . "\n";
         return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
     }
+
+    public function ldapQueryAction($filter='')
+    {
+        require 'inc/ilr-faculty-data.php';
+        $job_results = ldap2xml(run_ldap_query($filter));
+        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
+    }
 }

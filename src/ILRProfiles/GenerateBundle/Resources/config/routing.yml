@@ -30,6 +30,10 @@ ilr_profiles_get_profile_data:
     path:  /ilr_profiles_get_profile_data/
     defaults: { _controller: ILRProfilesGenerateBundle:GetProfileData:index}
 
+ilr_profiles_ldap_query:
+    path:  /ilr_profiles_ldap_query/{filter}
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:ldapQuery}
+
 ilr_profiles_index:
     path: /
     defaults: { _controller: ILRProfilesGenerateBundle:Welcome:index }
