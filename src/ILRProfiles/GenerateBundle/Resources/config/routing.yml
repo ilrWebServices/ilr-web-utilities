@@ -10,6 +10,18 @@ ilr_profiles_generate_data_just_retransform:
     path:  /ilr_profiles_generate_data_retransform/
     defaults: { _controller: ILRProfilesGenerateBundle:Generate:retransform}
 
+ilr_profiles_generate_ldap:
+    path:  /ilr_profiles_generate_ldap/
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:generateLdap}
+
+ilr_profiles_generate_legacy:
+    path:  /ilr_profiles_generate_legacy/
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:generateLegacy}
+
+ilr_profiles_generate_raw_ai:
+    path:  /ilr_profiles_generate_raw_ai/
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:generateRawAi}
+
 ilr_profiles_dump_constants:
     path:  /ilr_profiles_dump_constants/
     defaults: { _controller: ILRProfilesGenerateBundle:Generate:dumpConstants}
