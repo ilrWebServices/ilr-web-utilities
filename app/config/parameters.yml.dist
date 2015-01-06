@@ -12,7 +12,7 @@ parameters:
     locale:            en
     secret: DeMelloTriesSymfony
     ldap_start:        ou=people,o=cornell university,c=us
-    ldap_filter:       (|(uid=hck2)(uid=cjm267)(cornelledudeptname1=LIBR - Catherwood*)(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))
+    ldap_filter:       (|(uid=hck2)(uid=cjm267)(uid=rss14)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))
     ai_api_url: ~
     ai_userid: ~
     ai_pwd: ~
