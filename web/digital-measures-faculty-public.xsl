@@ -850,21 +850,23 @@
   </xsl:template>
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER != 'Selected Works']">
-    <xsl:text>
-    </xsl:text>
-    <li class="link">
-      <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
-      <a href="{$hyperlink}">
-        <xsl:choose>
-        <xsl:when test="dm:DESC != ''">
-          <xsl:value-of select="dm:DESC" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="dm:WEBSITE" />
-        </xsl:otherwise>
-      </xsl:choose>
-      </a>
-    </li>
+    <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
+    <xsl:if test="not(contains($hyperlink, 'ilr.cornell.edu/directory')) and not($hyperlink = 'http://www.ilr.cornell.edu')">
+      <xsl:text>
+      </xsl:text>
+      <li class="link">
+        <a href="{$hyperlink}">
+          <xsl:choose>
+          <xsl:when test="dm:DESC != ''">
+            <xsl:value-of select="dm:DESC" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="dm:WEBSITE" />
+          </xsl:otherwise>
+        </xsl:choose>
+        </a>
+      </li>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
