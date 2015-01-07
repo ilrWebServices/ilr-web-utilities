@@ -78,7 +78,7 @@
               <xsl:text>
               </xsl:text>
 
-              <graduate_fields>
+              <!-- <graduate_fields>
                 <xsl:apply-templates select="dm:ADMIN"/>
               </graduate_fields><xsl:text>
               </xsl:text>
@@ -86,7 +86,7 @@
               <acadvise_graduate>
                 <xsl:apply-templates select="dm:ACADVISE_GRADUATE"/>
               </acadvise_graduate><xsl:text>
-              </xsl:text>
+              </xsl:text> -->
 
               <education>
                   <xsl:apply-templates select="dm:EDUCATION"/>
@@ -113,10 +113,10 @@
               </research_statement><xsl:text>
               </xsl:text>
 
-              <research_statement_short>
+              <!-- <research_statement_short>
                 <xsl:apply-templates select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT"/>
               </research_statement_short><xsl:text>
-              </xsl:text>
+              </xsl:text> -->
 
               <research_areas><xsl:text>
                 </xsl:text>
@@ -413,22 +413,22 @@
     </ldap_leave_end>
   </xsl:template>
 
-  <xsl:template match="dm:ilrweb_publications_type">
+  <xsl:template match="dm:ilrweb_publications_type"><!--
     <ilrweb_publications_type>
     <xsl:apply-templates/>
     </ilrweb_publications_type>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_publications_doc">
+  <xsl:template match="dm:ilrweb_publications_doc"><!--
     <ilrweb_publications_doc>
     <xsl:if test=". != ''">
       <xsl:text>http://www.ilr.cornell.edu</xsl:text>
       <xsl:apply-templates/>
     </xsl:if>
     </ilrweb_publications_doc>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_publications">
+  <xsl:template match="dm:ilrweb_publications"><!--
     <xsl:variable name="source">
       <xsl:value-of select="@source"/>
     </xsl:variable>
@@ -446,9 +446,9 @@
     </ilrweb_publications>
     <xsl:text>
     </xsl:text>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_overview">
+  <xsl:template match="dm:ilrweb_overview"><!--
     <ilrweb_overview>
     <xsl:if test=". != ''">
       <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
@@ -462,35 +462,35 @@
     </ilrweb_overview>
     <xsl:text>
     </xsl:text>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_research">
+  <xsl:template match="dm:ilrweb_research"><!--
     <ilrweb_research>
     <xsl:apply-templates/>
     </ilrweb_research>
     <xsl:text>
     </xsl:text>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_expertise">
+  <xsl:template match="dm:ilrweb_expertise"><!--
     <ilrweb_expertise><xsl:text>
       </xsl:text>
       <xsl:apply-templates select="dm:ilrweb-expert"/>
     </ilrweb_expertise>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_expert">
+  <xsl:template match="dm:ilrweb_expert"><!--
     <ilrweb_expert>
     <xsl:copy-of select="./text()"/>
     </ilrweb_expert><xsl:text>
       </xsl:text>
-  </xsl:template>
+   --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_other_expertise">
+  <xsl:template match="dm:ilrweb_other_expertise"><!--
     <ilrweb_other_expertise>
     <xsl:apply-templates/>
     </ilrweb_other_expertise>
-  </xsl:template>
+   --></xsl:template>
 
   <xsl:template match="dm:ilrweb_vita_type">
     <ilrweb_vita_type>
