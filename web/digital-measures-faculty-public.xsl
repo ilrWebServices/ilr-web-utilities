@@ -347,19 +347,19 @@
     </ldap_email>
   </xsl:template>
 
-  <xsl:template match="dm:ldap_working_title1">
+  <xsl:template match="dm:ldap_working_title1"><!--
     <ldap_working_title1>
     <xsl:apply-templates/>
     </ldap_working_title1>
-  </xsl:template>
+   --></xsl:template>
 
   <xsl:template match="dm:ldap_working_title2" />
 
-  <xsl:template match="dm:ldap_uid">
+  <xsl:template match="dm:ldap_uid"><!--
     <ldap_uid>
     <xsl:apply-templates/>
     </ldap_uid>
-  </xsl:template>
+   --></xsl:template>
 
   <xsl:template match="dm:ldap_employee_type">
     <ldap_employee_type>
@@ -492,11 +492,11 @@
     </ilrweb_other_expertise>
    --></xsl:template>
 
-  <xsl:template match="dm:ilrweb_vita_type">
+  <xsl:template match="dm:ilrweb_vita_type"><!--
     <ilrweb_vita_type>
     <xsl:apply-templates/>
     </ilrweb_vita_type>
-  </xsl:template>
+   --></xsl:template>
 
   <xsl:template match="dm:ilrweb_vita_file">
     <ilrweb_vita_file>
@@ -504,7 +504,7 @@
     </ilrweb_vita_file>
   </xsl:template>
 
-  <xsl:template match="dm:ilrweb_vita_html">
+  <xsl:template match="dm:ilrweb_vita_html"><!--
     <ilrweb_vita_html>
     <xsl:if test=". != ''">
       <xsl:text disable-output-escaping="yes">
@@ -518,7 +518,7 @@
       </xsl:text>
     </xsl:if>
     </ilrweb_vita_html>
-  </xsl:template>
+   --></xsl:template>
 
   <xsl:template match="dm:ilrweb_jobtitle" />
 
