@@ -311,6 +311,9 @@ function ldap2xml($ldap) {
                     break;
                 }
               }
+              if ($thisVal == '-') {
+                $thisVal = '';
+              }
               if (strlen($thisVal) > 0) {
                 $result[] = "\t\t<$whiteLabels[$attr]" . "$suffix>" . htmlspecialchars($thisVal, ENT_QUOTES, "UTF-8") . "</$whiteLabels[$attr]" . "$suffix>";
               } else {
