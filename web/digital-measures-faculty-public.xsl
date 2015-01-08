@@ -564,6 +564,12 @@
     </ilrweb_photo_url>
   </xsl:template>
 
+  <xsl:template match="dm:ilrweb_fax">
+    <ilrweb_fax>
+    <xsl:apply-templates/>
+    </ilrweb_fax>
+  </xsl:template>
+
   <xsl:template match="dm:DISCIPLINE">
     <field>
     <xsl:apply-templates/>
