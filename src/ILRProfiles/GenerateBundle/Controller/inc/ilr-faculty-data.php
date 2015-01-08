@@ -445,7 +445,7 @@ function write_raw_ai_data_to_file(&$aws_Client, $aws_bucket, $ldap, &$job_log) 
         fwrite($stream, get_ai_record_from_data($ai_data->responseData));
       } else {
         // Add a placeholder Record to the main XML document with the userid
-        fwrite($stream, '<Record username="' . $person['uid'][0] . '" />');
+        fwrite($stream, '<Record username="' . $person['uid'][0] . '" noaidata="true" />');
       }
     }
   }

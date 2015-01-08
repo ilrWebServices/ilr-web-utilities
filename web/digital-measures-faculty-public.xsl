@@ -37,6 +37,42 @@
               </netID><xsl:text>
               </xsl:text>
 
+              <display_in_faculty_list>
+                <xsl:choose>
+                  <xsl:when test="@noaidata">
+                    <xsl:text>false</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="$ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'faculty' or $ldap//*[@username=$thisnetid]/dm:ldap_profile_type = 'dean'">
+                    <xsl:variable name="has_bio">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:BIO"/>
+                    </xsl:variable>
+                    <xsl:variable name="has_research">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_WEB"/>
+                    </xsl:variable>
+                    <xsl:variable name="has_teaching">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH_WEB"/>
+                    </xsl:variable>
+                    <xsl:variable name="has_service">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_SERVICE_WEB"/>
+                    </xsl:variable>
+                    <xsl:variable name="has_outreach">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_OUTREACH_WEB"/>
+                    </xsl:variable>
+                    <xsl:choose>
+                      <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != ''">
+                        <xsl:text>true</xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text>false</xsl:text>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>false</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </display_in_faculty_list>
+
               <userid>
                 <xsl:value-of select="@userId"/>
               </userid><xsl:text>
