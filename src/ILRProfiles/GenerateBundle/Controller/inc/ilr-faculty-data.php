@@ -204,7 +204,7 @@ function run_ldap_query($filter) {
 
 function get_ilr_people_from_ldap() {
   //$ldap_filter = LDAP_FILTER;
-  $ldap_filter = '(|(uid=cl672)(uid=hck2)(uid=cjm267)(uid=rss14)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
+  $ldap_filter = '(|(uid=cl672)(uid=vmb2)(uid=hck2)(uid=cjm267)(uid=rss14)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
   if (!strpos($ldap_filter, '(uid=rss14)')) {
     $ldap_filter = str_replace('(uid=hck2)', '(uid=hck2)(uid=rss14)', $ldap_filter);
   }
@@ -246,8 +246,6 @@ function ldap2xml($ldap) {
 
   if (count($ldap)) {
     $whiteLabels = array();
-    $faculty_leave = get_faculty_leave();
-
     $whiteLabels['displayname'] = "ldap_display_name";
     $whiteLabels['cornelleducampusaddress'] = "ldap_campus_address";
     $whiteLabels['cornelleducampusphone'] = "ldap_campus_phone";
@@ -263,6 +261,25 @@ function ldap2xml($ldap) {
     $whiteLabels['mailalternateaddress'] = "ldap_mail_nickname";
     $whiteLabels['edupersonnickname'] = "ldap_nickname";
     $whiteLabels['cornelledulocaladdress'] = "ldap_local_address";
+
+    $faculty_titles = array();
+    $faculty_titles[] = 'Extension Associate Sr';
+    $faculty_titles[] = 'Lecturer Sr';
+    $faculty_titles[] = 'Lecturer Visit';
+    $faculty_titles[] = 'Lecturer';
+    $faculty_titles[] = 'Prof Assoc';
+    $faculty_titles[] = 'Prof Asst';
+    $faculty_titles[] = 'Prof Emeritus';
+    $faculty_titles[] = 'Prof Leading';
+    $faculty_titles[] = 'Prof Visiting';
+    $faculty_titles[] = 'Professor';
+    $faculty_titles[] = 'Research Associate Sr';
+    $faculty_titles[] = 'Research Associate';
+    $faculty_titles[] = 'Scholar Visit';
+
+    $temp_faculty = array('lha1', 'smb6', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2');
+    $deans = array('hck2', 'smb23', 'jz76', 'jeg68', 'cec23', 'rss14');
+    $faculty_leave = get_faculty_leave();
 
       $result[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     $result[] = "<Data dmd:date=\"2010-02-23\" xmlns=\"http://www.digitalmeasures.com/schema/data\" xmlns:dmd=\"http://www.digitalmeasures.com/schema/data-metadata\">";
@@ -304,11 +321,13 @@ function ldap2xml($ldap) {
             $result[] = "\t\t<$whiteLabels[$attr]/>";
           }
         }
-        if (in_array($person['uid'][0], array('hck2', 'smb23', 'jz76', 'jeg68', 'cec23', 'rss14'))) {
+        if (in_array($person['uid'][0], $deans)) {
           $profile_type = 'dean';
         } elseif ($person['cornelledutype'][0] == 'academic' && strpos($person['cornelledudeptid1'][0], 'LIB')) {
           $profile_type = 'librarian';
-        } elseif ($person['cornelledutype'][0] == 'academic') {
+        } elseif (in_array($person['cornelleduunivtitle1'][0], $faculty_titles)) {
+          $profile_type = 'faculty';
+        } elseif (in_array($person['uid'][0], $temp_faculty)) {
           $profile_type = 'faculty';
         } else {
           $profile_type = 'staff';
