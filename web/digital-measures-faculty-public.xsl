@@ -58,8 +58,15 @@
                     <xsl:variable name="has_outreach">
                       <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_OUTREACH_WEB"/>
                     </xsl:variable>
+                    <xsl:variable name="has_expertise">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:CONCENTRATION"/>
+                    </xsl:variable>
+                    <xsl:variable name="has_other_expertise">
+                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:CONCENTRATION_OTHER"/>
+                    </xsl:variable>
                     <xsl:choose>
-                      <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != ''">
+                      <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != '' or $has_expertise != '' or $has_other_expertise != ''">
+                        <xsl:if test="/xml/node/* != ''" />
                         <xsl:text>true</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
