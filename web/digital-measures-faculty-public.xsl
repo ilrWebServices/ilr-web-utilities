@@ -58,14 +58,14 @@
                     <xsl:variable name="has_outreach">
                       <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_OUTREACH_WEB"/>
                     </xsl:variable>
-                    <xsl:variable name="has_expertise">
-                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:CONCENTRATION"/>
+                    <xsl:variable name="has_journal_articles">
+                      <xsl:value-of select="dm:INTELLCONT_JOURNAL[dm:PUBLIC_VIEW='Yes'][dm:USER_REFERENCE_CREATOR='Yes']"/>
                     </xsl:variable>
-                    <xsl:variable name="has_other_expertise">
-                      <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:CONCENTRATION_OTHER"/>
+                    <xsl:variable name="has_other_pubs">
+                      <xsl:value-of select="dm:INTELLCONT[dm:PUBLIC_VIEW='Yes'][dm:USER_REFERENCE_CREATOR='Yes']"/>
                     </xsl:variable>
                     <xsl:choose>
-                      <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != '' or $has_expertise != '' or $has_other_expertise != ''">
+                      <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != '' or $has_journal_articles != '' or $has_other_pubs != ''">
                         <xsl:if test="/xml/node/* != ''" />
                         <xsl:text>true</xsl:text>
                       </xsl:when>
