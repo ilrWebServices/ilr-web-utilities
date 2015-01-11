@@ -153,6 +153,10 @@ function get_ai_users() {
 
 function get_ai_person($netid) {
   $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-University/USERNAME:' . $netid;
+  // If not found, try with the netid in upper case. Some records in AI are in this state, and XPath is case-sensitive.
+  if ( $URI->statusCode != 200 ) {
+    $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-University/USERNAME:' . strtoupper($netid);
+  }
   return query_ai($URI);
 }
 
