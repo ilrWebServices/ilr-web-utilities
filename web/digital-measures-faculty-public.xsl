@@ -920,7 +920,7 @@
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
-    <p class="selected_works"><a href="{$hyperlink}"><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /><xsl:text>'s selected works</xsl:text></a></p>
+    <p class="selected_works"><a href="{$hyperlink}"><xsl:text>Read selected works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
   </xsl:template>
 
   <xsl:template name="tail">
