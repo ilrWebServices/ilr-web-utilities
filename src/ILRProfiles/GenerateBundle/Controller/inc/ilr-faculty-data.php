@@ -165,6 +165,7 @@ function get_ai_person($netid) {
 function get_ai_record_from_data($xml) {
   $string = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $xml);
   $string = preg_replace('/<\/*Data[^>]*>/i', '', $string);
+  $string = preg_replace_callback('/(username="[^"]+)/i', function ($matches) { return strtolower($matches[0]); }, $string);
   return $string;
 }
 
