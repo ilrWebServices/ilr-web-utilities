@@ -311,6 +311,9 @@ function ldap2xml($ldap) {
                     break;
                 }
               }
+              if ($attr == 'cornelleduwrkngtitle1' && strpos($person['cornelleduwrkngtitle1'][0], 'Temp Serv') !== FALSE) {
+                $thisVal = 'Staff';
+              }
               if ($thisVal == '-') {
                 $thisVal = '';
               }
