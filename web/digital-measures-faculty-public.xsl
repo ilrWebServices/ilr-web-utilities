@@ -255,7 +255,6 @@
                   <xsl:text disable-output-escaping="yes">
                   &lt;</xsl:text>
                   <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-                  <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']"/>
                   <ul class="articles">
                   <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
                     <xsl:sort order="descending" select="DTY_PUB"/>
@@ -266,6 +265,7 @@
                     <xsl:sort order="descending" select="DTY_PUB"/>
                   </xsl:apply-templates>
                   </ul>
+                  <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']"/>
                   <xsl:text disable-output-escaping="yes">]]</xsl:text>
                   <xsl:text disable-output-escaping="yes">>
                   </xsl:text>
@@ -920,7 +920,7 @@
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
-    <p class="selected_works"><a href="{$hyperlink}"><xsl:text>Read selected works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
+    <p class="selected_works"><a href="{$hyperlink}"><xsl:text>Selected Works is a service of BePress that helps readers follow a scholar's most current work. View Selected Works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
   </xsl:template>
 
   <xsl:template name="tail">
