@@ -285,7 +285,7 @@ function ldap2xml($ldap) {
     $faculty_titles[] = 'Scholar Visit';
 
     $temp_faculty = array('lha1', 'smb6', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2');
-    $deans = array('hck2', 'smb23', 'jz76', 'jeg68', 'cec23', 'rss14');
+    $deans = array('hck2', 'smb23', 'jeg68', 'rss14');
     $faculty_leave = get_faculty_leave();
 
       $result[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -335,7 +335,7 @@ function ldap2xml($ldap) {
           }
         }
         if (in_array($person['uid'][0], $deans)) {
-          $profile_type = 'dean';
+          $profile_type = 'faculty';
         } elseif ($person['cornelledutype'][0] == 'academic' && strpos($person['cornelledudeptid1'][0], 'LIB')) {
           $profile_type = 'librarian';
         } elseif (in_array($person['cornelleduunivtitle1'][0], $faculty_titles)) {
