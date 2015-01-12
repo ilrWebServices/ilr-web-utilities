@@ -59,10 +59,10 @@
                       <xsl:value-of select="dm:NARRATIVE_INTERESTS/dm:FOCUS_OUTREACH_WEB"/>
                     </xsl:variable>
                     <xsl:variable name="has_journal_articles">
-                      <xsl:value-of select="dm:INTELLCONT_JOURNAL[dm:PUBLIC_VIEW='Yes'][dm:USER_REFERENCE_CREATOR='Yes']"/>
+                      <xsl:value-of select="dm:INTELLCONT_JOURNAL[dm:PUBLIC_VIEW='Yes']"/>
                     </xsl:variable>
                     <xsl:variable name="has_other_pubs">
-                      <xsl:value-of select="dm:INTELLCONT[dm:PUBLIC_VIEW='Yes'][dm:USER_REFERENCE_CREATOR='Yes']"/>
+                      <xsl:value-of select="dm:INTELLCONT[dm:PUBLIC_VIEW='Yes']"/>
                     </xsl:variable>
                     <xsl:choose>
                       <xsl:when test="$has_bio != '' or $has_research != '' or $has_teaching != '' or $has_service != '' or $has_outreach != '' or $has_journal_articles != '' or $has_other_pubs != ''">
@@ -842,7 +842,7 @@
 
   <xsl:template match="dm:INTELLCONT_JOURNAL">
     <xsl:choose>
-    <xsl:when test="dm:PUBLIC_VIEW='Yes' and dm:USER_REFERENCE_CREATOR='Yes'">
+    <xsl:when test="dm:PUBLIC_VIEW='Yes'">
       <li class="journal-article">
         <xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text>
         <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
@@ -959,7 +959,7 @@
   <xsl:template name="outputpub">
     <xsl:param name="pubtype" />
       <xsl:choose>
-      <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes' and dm:USER_REFERENCE_CREATOR='Yes'">
+      <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes'">
         <li class="publication">
           <xsl:if test="dm:TITLE !=''"><span class="title"><xsl:value-of select="dm:TITLE"/>. </span></xsl:if>
           <xsl:if test="dm:BOOK_TITLE !=''">in <span class="book-title"><xsl:value-of select="dm:BOOK_TITLE"/>. </span></xsl:if>
