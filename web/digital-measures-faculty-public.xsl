@@ -255,16 +255,61 @@
                   <xsl:text disable-output-escaping="yes">
                   &lt;</xsl:text>
                   <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-                  <ul class="articles">
-                  <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
-                    <xsl:sort order="descending" select="DTY_PUB"/>
-                  </xsl:apply-templates>
-                  </ul>
-                  <ul class="pubs">
-                  <xsl:apply-templates select="dm:INTELLCONT">
-                    <xsl:sort order="descending" select="DTY_PUB"/>
-                  </xsl:apply-templates>
-                  </ul>
+
+                  <xsl:if test="dm:INTELLCONT_JOURNAL != ''">
+                    <h4>Journal Articles</h4>
+                    <ul class="articles">
+                    <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
+                      <xsl:sort order="descending" select="DTY_PUB"/>
+                    </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Books</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Book Chapters</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Review'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Book Reviews</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Review'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Conference Proceeding'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Conference Proceedings</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Conference Proceeding'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Abstract'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Abstracts</h4>
+                    <ul class="pubs">
+                    <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Abstract'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
                   <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']"/>
                   <xsl:text disable-output-escaping="yes">]]</xsl:text>
                   <xsl:text disable-output-escaping="yes">>
@@ -836,8 +881,8 @@
 
   <xsl:template match="dm:INTELLCONT/dm:INTELLCONT_AUTH">
     <xsl:value-of select="dm:FNAME"/><xsl:text> </xsl:text>
-    <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text>. </xsl:text></xsl:when></xsl:choose>
-    <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="not(following-sibling::dm:INTELLCONT_JOURNAL/dm:INTELLCONT_AUTH)"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
+    <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text> </xsl:text></xsl:when></xsl:choose>
+    <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="following-sibling::dm:INTELLCONT_AUTH"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
   <xsl:template match="dm:INTELLCONT_JOURNAL">
@@ -894,7 +939,7 @@
 
   <xsl:template match="dm:INTELLCONT_JOURNAL/dm:INTELLCONT_JOURNAL_AUTH">
     <xsl:value-of select="dm:FNAME"/><xsl:text> </xsl:text>
-    <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text>. </xsl:text></xsl:when></xsl:choose>
+    <xsl:choose><xsl:when test="dm:MNAME != ''"><xsl:value-of select="dm:MNAME"/><xsl:text> </xsl:text></xsl:when></xsl:choose>
     <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="following-sibling::dm:INTELLCONT_JOURNAL_AUTH"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
@@ -920,7 +965,7 @@
 
   <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
-    <p class="selected_works"><a href="{$hyperlink}"><xsl:text>Selected Works is a service of BePress that helps readers follow a scholar's most current work. View Selected Works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
+    <h3>Selected Works</h3><p class="selected_works"><xsl:text>Selected Works is a service of BePress Publishing that helps readers follow a scholar's most current work. </xsl:text><a href="{$hyperlink}"><xsl:text>View Selected Works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
   </xsl:template>
 
   <xsl:template name="tail">
@@ -938,22 +983,44 @@
   </xsl:template>
 
   <!-- output each publication type in preferred order -->
-  <xsl:template match="dm:INTELLCONT">
-    <xsl:call-template name="outputpub">
-      <xsl:with-param name="pubtype">Book Chapter</xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="outputpub">
-      <xsl:with-param name="pubtype">Book, Scholarly</xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="outputpub">
-      <xsl:with-param name="pubtype">Book Review</xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="outputpub">
-      <xsl:with-param name="pubtype">Conference Proceeding</xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="outputpub">
-      <xsl:with-param name="pubtype">Abstract</xsl:with-param>
-    </xsl:call-template>
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book, Scholarly'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Book, Scholarly</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book Chapter'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Book Chapter</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book Review'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Book Review</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Conference Proceeding'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Conference Proceeding</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Abstract'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Abstract</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="outputpub">
@@ -961,12 +1028,13 @@
       <xsl:choose>
       <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes'">
         <li class="publication">
+          <xsl:if test="dm:INTELLCONT_AUTH !=''"><xsl:apply-templates select="dm:INTELLCONT_AUTH"/><xsl:text>. </xsl:text></xsl:if>
+          <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
           <xsl:if test="dm:TITLE !=''"><span class="title"><xsl:value-of select="dm:TITLE"/>. </span></xsl:if>
           <xsl:if test="dm:BOOK_TITLE !=''">in <span class="book-title"><xsl:value-of select="dm:BOOK_TITLE"/>. </span></xsl:if>
           <xsl:if test="dm:PUBCTYST !=''"><span class="pubctyst"><xsl:value-of select="dm:PUBCTYST"/>: </span></xsl:if>
           <xsl:if test="dm:PUBLISHER !=''"><span class="publisher"><xsl:value-of select="dm:PUBLISHER"/>, </span></xsl:if>
           <xsl:if test="dm:DTY_PUB !=''"><span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span></xsl:if>
-          <xsl:if test="dm:INTELLCONT_JOURNAL_AUTH !=''"><span class="authors"><xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text></span></xsl:if>
           <xsl:if test="dm:EDITORS !=''"><span class="editors"><xsl:value-of select="dm:EDITORS"/>. </span></xsl:if>
           <xsl:if test="dm:PAGENUM !=''"><span class="pages">(<xsl:value-of select="dm:PAGENUM"/>)</span></xsl:if>
           <xsl:if test="dm:STATUS !=''"><span class="status">(<xsl:value-of select="dm:STATUS"/>)</span></xsl:if>
