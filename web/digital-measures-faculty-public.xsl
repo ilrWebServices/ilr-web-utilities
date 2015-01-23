@@ -310,7 +310,7 @@
                     </ul>
                   </xsl:if>
 
-                  <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']"/>
+                  <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'selected works']"/>
                   <xsl:text disable-output-escaping="yes">]]</xsl:text>
                   <xsl:text disable-output-escaping="yes">>
                   </xsl:text>
@@ -326,7 +326,8 @@
                     <xsl:text disable-output-escaping="yes">&lt;</xsl:text>
                     <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                     <ul class="links">
-                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER != 'Selected Works']"/>
+                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'cv']"/>
+                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[(dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv')]"/>
                     </ul>
                     <xsl:text disable-output-escaping="yes">]]</xsl:text>
                     <xsl:text disable-output-escaping="yes">>
@@ -943,7 +944,7 @@
     <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="following-sibling::dm:INTELLCONT_JOURNAL_AUTH"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
-  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER != 'Selected Works']">
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[(dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv')]">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
     <xsl:if test="not(contains($hyperlink, 'ilr.cornell.edu/directory')) and not($hyperlink = 'http://www.ilr.cornell.edu')">
       <xsl:text>
@@ -963,7 +964,16 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'Selected Works']">
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'cv']">
+    <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
+    <xsl:text>
+    </xsl:text>
+    <li class="link">
+      <a href="{$hyperlink}"><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /><xsl:text>'s CV</xsl:text></a>
+    </li>
+  </xsl:template>
+
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'selected works']">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
     <h3>Selected Works</h3><p class="selected_works"><xsl:text>Selected Works is a service of BePress Publishing that helps readers follow a scholar's most current work. </xsl:text><a href="{$hyperlink}"><xsl:text>View Selected Works of </xsl:text><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /></a></p>
   </xsl:template>

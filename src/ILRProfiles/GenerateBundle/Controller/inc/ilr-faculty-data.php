@@ -166,6 +166,9 @@ function get_ai_record_from_data($xml) {
   $string = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $xml);
   $string = preg_replace('/<\/*Data[^>]*>/i', '', $string);
   $string = preg_replace_callback('/(username="[^"]+)/i', function ($matches) { return strtolower($matches[0]); }, $string);
+  $string = str_ireplace("<TYPE_OTHER>Selected Works</TYPE_OTHER>", "<TYPE_OTHER>selected works</TYPE_OTHER>", "$string");
+  $string = str_ireplace("<TYPE_OTHER>CV</TYPE_OTHER>", "<TYPE_OTHER>cv</TYPE_OTHER>", "$string");
+
   return $string;
 }
 
@@ -284,7 +287,7 @@ function ldap2xml($ldap) {
     $faculty_titles[] = 'Research Associate';
     $faculty_titles[] = 'Scholar Visit';
 
-    $temp_faculty = array('lha1', 'smb6', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2');
+    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2');
     $deans = array('hck2', 'smb23', 'jeg68', 'rss14');
     $faculty_leave = get_faculty_leave();
 
