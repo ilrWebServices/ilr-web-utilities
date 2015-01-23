@@ -708,55 +708,23 @@
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_TEACH_WEB">
-    <xsl:if test=". != ''">
-      <xsl:text disable-output-escaping="yes">
-      &lt;</xsl:text>
-      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-      <xsl:apply-templates/><xsl:text>
-      </xsl:text>
-      <xsl:text disable-output-escaping="yes">]]</xsl:text>
-      <xsl:text disable-output-escaping="yes">>
-      </xsl:text>
-    </xsl:if>
+    <xsl:apply-templates/><xsl:text>
+    </xsl:text>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_SERVICE_WEB">
-    <xsl:if test=". != ''">
-      <xsl:text disable-output-escaping="yes">
-      &lt;</xsl:text>
-      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-      <xsl:apply-templates/><xsl:text>
-      </xsl:text>
-      <xsl:text disable-output-escaping="yes">]]</xsl:text>
-      <xsl:text disable-output-escaping="yes">>
-      </xsl:text>
-    </xsl:if>
+    <xsl:apply-templates/><xsl:text>
+    </xsl:text>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_OUTREACH_WEB">
-    <xsl:if test=". != ''">
-      <xsl:text disable-output-escaping="yes">
-      &lt;</xsl:text>
-      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-      <xsl:apply-templates/><xsl:text>
-      </xsl:text>
-      <xsl:text disable-output-escaping="yes">]]</xsl:text>
-      <xsl:text disable-output-escaping="yes">>
-      </xsl:text>
-    </xsl:if>
+    <xsl:apply-templates/><xsl:text>
+    </xsl:text>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_WEB">
-    <xsl:if test=". != ''">
-      <xsl:text disable-output-escaping="yes">
-      &lt;</xsl:text>
-      <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
-      <xsl:apply-templates/><xsl:text>
-      </xsl:text>
-      <xsl:text disable-output-escaping="yes">]]</xsl:text>
-      <xsl:text disable-output-escaping="yes">>
-      </xsl:text>
-    </xsl:if>
+    <xsl:apply-templates/><xsl:text>
+    </xsl:text>
   </xsl:template>
 
   <xsl:template match="dm:NARRATIVE_INTERESTS/dm:FOCUS_RESEARCH_SHORT">
@@ -968,7 +936,7 @@
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
     <xsl:text>
     </xsl:text>
-    <li class="link">
+    <li class="link cv">
       <a href="{$hyperlink}"><xsl:value-of select="../dm:FNAME" /><xsl:text> </xsl:text><xsl:value-of select="../dm:LNAME" /><xsl:text>'s CV</xsl:text></a>
     </li>
   </xsl:template>
