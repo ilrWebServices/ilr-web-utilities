@@ -274,6 +274,15 @@
                     </ul>
                   </xsl:if>
 
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Textbooks</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
                   <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes'] != ''">
                     <h4>Book Chapters</h4>
                     <ul class="pubs">
@@ -965,6 +974,14 @@
     <xsl:if test=". != ''">
       <xsl:call-template name="outputpub">
         <xsl:with-param name="pubtype">Book, Scholarly</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Book, Textbook</xsl:with-param>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
