@@ -292,10 +292,37 @@
                     </ul>
                   </xsl:if>
 
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Book Sections</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Written Case'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Written Cases</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Written Case'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
                   <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Review'][dm:PUBLIC_VIEW='Yes'] != ''">
                     <h4>Book Reviews</h4>
                     <ul class="pubs">
                       <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Review'][dm:PUBLIC_VIEW='Yes']">
+                        <xsl:sort order="descending" select="DTY_PUB"/>
+                      </xsl:apply-templates>
+                    </ul>
+                  </xsl:if>
+
+                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Cited Research'][dm:PUBLIC_VIEW='Yes'] != ''">
+                    <h4>Cited Research</h4>
+                    <ul class="pubs">
+                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Cited Research'][dm:PUBLIC_VIEW='Yes']">
                         <xsl:sort order="descending" select="DTY_PUB"/>
                       </xsl:apply-templates>
                     </ul>
@@ -994,10 +1021,34 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book Section'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Book Section</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Written Case'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Written Case</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Book Review'][dm:PUBLIC_VIEW='Yes']">
     <xsl:if test=". != ''">
       <xsl:call-template name="outputpub">
         <xsl:with-param name="pubtype">Book Review</xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="dm:INTELLCONT[dm:CONTYPE = 'Cited Research'][dm:PUBLIC_VIEW='Yes']">
+    <xsl:if test=". != ''">
+      <xsl:call-template name="outputpub">
+        <xsl:with-param name="pubtype">Cited Research</xsl:with-param>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
