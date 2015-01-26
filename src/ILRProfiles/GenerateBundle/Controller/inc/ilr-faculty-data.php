@@ -135,9 +135,13 @@ function doc_append(&$doc1, $doc2) {
   }
 }
 
-function get_ilr_profiles_transform_xsl() {
+function get_ilr_profiles_transform_xsl($version='default') {
   $xsl = new DOMDocument();
-  $xsl->load('digital-measures-faculty-public.xsl');
+  if ($version != 'default') {
+    $xsl->load('alt-transform.xsl');
+  } else {
+    $xsl->load('digital-measures-faculty-public.xsl');
+  }
   return $xsl;
 }
 
@@ -473,13 +477,11 @@ function write_raw_ai_data_to_file(&$aws_Client, $aws_bucket, $ldap, &$job_log) 
 }
 
 // Aggregated and transformed data to file
-function write_aggregated_ai_data_to_file(&$aws_Client, $aws_bucket, &$job_log) {
+function write_aggregated_ai_data_to_file(&$aws_Client, $aws_bucket, &$job_log, $version='default', $output_file='ilr_profiles_feed.xml') {
   // Retrieve to XML
   $raw_xml = file_get_contents("s3://{$aws_bucket}/ilr_profiles_raw_ai_data.xml");
 
   // Run the XSLT transform on the main xml file, which will fold in the fields from lpad and legacy_ilr_directory_HTML
-  replace_file($aws_Client, $aws_bucket, 'ilr_profiles_feed.xml', stripEmptyCDATA(xslt_transform($raw_xml, get_ilr_profiles_transform_xsl(), 'xml')));
+  replace_file($aws_Client, $aws_bucket, $output_file, stripEmptyCDATA(xslt_transform($raw_xml, get_ilr_profiles_transform_xsl($version), 'xml')));
   add_log_event($job_log, "Final ILR Profiles data feed generated");
 }
-
-

@@ -64,6 +64,17 @@ class GenerateController extends Controller
         return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
     }
 
+    public function retransformWithAltXslAction()
+    {
+        require 'inc/ilr-faculty-data.php';
+
+        add_log_event($job_log, "Job begun");
+        write_aggregated_ai_data_to_file($client, $aws_bucket, $job_log, 'alt', 'ilr_profiles_alternate.xml');
+        $job_results = log_results($client, $aws_bucket, $job_log, "XSL re-transformation only of exisitng profile data using alternate XSLT");
+
+        return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
+    }
+
     public function dumpConstantsAction()
     {
         require 'inc/ilr-faculty-data-conf.php';
