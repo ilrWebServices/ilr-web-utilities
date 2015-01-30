@@ -892,7 +892,7 @@
 
   <xsl:template match="dm:INTELLCONT_JOURNAL">
     <xsl:choose>
-    <xsl:when test="dm:PUBLIC_VIEW='Yes'">
+    <xsl:when test="dm:PUBLIC_VIEW='Yes' and (dm:USER_REFERENCE_CREATOR='Yes' or not(../dm:NARRATIVE_INTERESTS/dm:WEB_DISPLAY_NONOWNED_PUBLICATIONS) or ../dm:NARRATIVE_INTERESTS/dm:WEB_DISPLAY_NONOWNED_PUBLICATIONS != 'No')">
       <li class="journal-article">
         <xsl:apply-templates select="dm:INTELLCONT_JOURNAL_AUTH"/><xsl:text>. </xsl:text>
         <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
@@ -1072,7 +1072,7 @@
   <xsl:template name="outputpub">
     <xsl:param name="pubtype" />
       <xsl:choose>
-      <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes'">
+      <xsl:when test="dm:CONTYPE=$pubtype and dm:PUBLIC_VIEW='Yes' and (dm:USER_REFERENCE_CREATOR='Yes' or not(../dm:NARRATIVE_INTERESTS/dm:WEB_DISPLAY_NONOWNED_PUBLICATIONS) or ../dm:NARRATIVE_INTERESTS/dm:WEB_DISPLAY_NONOWNED_PUBLICATIONS != 'No')">
         <li class="publication">
           <xsl:if test="dm:INTELLCONT_AUTH !=''"><xsl:apply-templates select="dm:INTELLCONT_AUTH"/><xsl:text>. </xsl:text></xsl:if>
           <span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span>
