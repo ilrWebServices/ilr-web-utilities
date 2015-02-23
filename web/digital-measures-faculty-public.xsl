@@ -256,50 +256,102 @@
                   &lt;</xsl:text>
                   <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
 
-                  <xsl:if test="dm:INTELLCONT_JOURNAL != ''">
-                    <h4>Journal Articles</h4>
-                    <ul class="articles">
-                    <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
-                      <xsl:sort order="descending" select="DTY_PUB"/>
-                    </xsl:apply-templates>
-                    </ul>
-                  </xsl:if>
+                  <xsl:choose>
+                    <xsl:when test="$thisnetid = 'jrc32'">
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Books</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
 
-                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes'] != ''">
-                    <h4>Books</h4>
-                    <ul class="pubs">
-                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes']">
-                        <xsl:sort order="descending" select="DTY_PUB"/>
-                      </xsl:apply-templates>
-                    </ul>
-                  </xsl:if>
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Textbooks</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
 
-                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes'] != ''">
-                    <h4>Textbooks</h4>
-                    <ul class="pubs">
-                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes']">
-                        <xsl:sort order="descending" select="DTY_PUB"/>
-                      </xsl:apply-templates>
-                    </ul>
-                  </xsl:if>
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Book Chapters</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
 
-                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes'] != ''">
-                    <h4>Book Chapters</h4>
-                    <ul class="pubs">
-                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes']">
-                        <xsl:sort order="descending" select="DTY_PUB"/>
-                      </xsl:apply-templates>
-                    </ul>
-                  </xsl:if>
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Book Sections</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
 
-                  <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes'] != ''">
-                    <h4>Book Sections</h4>
-                    <ul class="pubs">
-                      <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes']">
-                        <xsl:sort order="descending" select="DTY_PUB"/>
-                      </xsl:apply-templates>
-                    </ul>
-                  </xsl:if>
+                      <xsl:if test="dm:INTELLCONT_JOURNAL != ''">
+                        <h4>Journal Articles</h4>
+                        <ul class="articles">
+                        <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
+                          <xsl:sort order="descending" select="DTY_PUB"/>
+                        </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+                    </xsl:when>
+
+                    <xsl:otherwise>
+                      <xsl:if test="dm:INTELLCONT_JOURNAL != ''">
+                        <h4>Journal Articles</h4>
+                        <ul class="articles">
+                        <xsl:apply-templates select="dm:INTELLCONT_JOURNAL">
+                          <xsl:sort order="descending" select="DTY_PUB"/>
+                        </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Books</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book, Scholarly'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Textbooks</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE = 'Book, Textbook'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Book Chapters</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Chapter'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+
+                      <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes'] != ''">
+                        <h4>Book Sections</h4>
+                        <ul class="pubs">
+                          <xsl:apply-templates select="dm:INTELLCONT[dm:CONTYPE='Book Section'][dm:PUBLIC_VIEW='Yes']">
+                            <xsl:sort order="descending" select="DTY_PUB"/>
+                          </xsl:apply-templates>
+                        </ul>
+                      </xsl:if>
+
+                    </xsl:otherwise>
+                  </xsl:choose>
 
                   <xsl:if test="dm:INTELLCONT[dm:CONTYPE='Written Case'][dm:PUBLIC_VIEW='Yes'] != ''">
                     <h4>Written Cases</h4>
@@ -1083,8 +1135,8 @@
           <xsl:if test="dm:DTY_PUB !=''"><span class="year"><xsl:value-of select="dm:DTY_PUB"/>. </span></xsl:if>
           <xsl:if test="dm:EDITORS !=''"><span class="editors"><xsl:value-of select="dm:EDITORS"/>. </span></xsl:if>
           <xsl:if test="dm:PAGENUM !=''"><span class="pages">(<xsl:value-of select="dm:PAGENUM"/>)</span></xsl:if>
-          <xsl:if test="dm:STATUS !=''"><span class="status">(<xsl:value-of select="dm:STATUS"/>)</span></xsl:if>
-          <xsl:if test="dm:CONTYPE !=''"><span class="content-type">(<xsl:value-of select="dm:CONTYPE"/>)</span></xsl:if>
+          <xsl:if test="dm:STATUS !='' and dm:STATUS !='Published'"><span class="status">(<xsl:value-of select="dm:STATUS"/>)</span></xsl:if>
+          <!--<xsl:if test="dm:CONTYPE !=''"><span class="content-type">(<xsl:value-of select="dm:CONTYPE"/>)</span></xsl:if>-->
         </li>
         <xsl:text>
         </xsl:text>
