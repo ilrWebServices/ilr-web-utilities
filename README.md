@@ -1,7 +1,7 @@
 ilr-web-utilities
 =================
 
-A Symfony application to house miscellaneous utility tasks and support for small applications not suitable for hosting on Acquia.
+A Symfony application to house miscellaneous utility tasks exposed as web services to support processes not suitable for hosting on Acquia. As of 3/12/2015, the only tasks available are those associated with collecting information about ILR faculty and staff to feed web-based profiles of those people on the ILR web site.   
 
 Parts of this README file are taken with little or no modification from the README for the installaton of the Symfony Standard Edition (the default Symfony application).
 
@@ -53,15 +53,16 @@ If you get any warnings or recommendations, fix them before moving on.
 4) Getting Oriented in Symfony
 ------------------------------
 
-Congratulations! You're now ready to use Symfony to work on this application. For further instructions on how Symfony works and how this app is configured, please see the file README_FOR_SYMFONY.md in the root of this repo.
+Congratulations! You're now ready to use Symfony to work on this application. For further instructions on how Symfony works and how this app is configured, [please see the file README_FOR_SYMFONY.md][2] in the root of this repo.
 
 5) Deploying to AWS Elastic Beanstalk
 -------------------------------------
 
-[How to deploy a Symfony2 application to AWS EB][2]
+[How to deploy a Symfony2 application to AWS EB][3]
 
-[Getting set up with the EB command line tools to manage continuous integration and deployment][3]
+[Getting set up with the EB command line tools to manage continuous integration and deployment][4]
 
 [1]:  http://getcomposer.org/
-[2]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_PHP_symfony2.html
-[3]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-set-up.html
+[2]:  README_FOR_SYMFONY.md
+[3]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_PHP_symfony2.html
+[4]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-set-up.html
