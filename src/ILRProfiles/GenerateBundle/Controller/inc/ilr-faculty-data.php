@@ -321,6 +321,10 @@ function ldap2xml($ldap) {
                     $thisVal = "ILR - Human Resources";
                     break;
 
+                  case 'ILR - Employment & Disability':
+                    $thisVal = "ILR - Yang-Tan Institute on Employment and Disability";
+                    break;
+
                   default:
                     break;
                 }
