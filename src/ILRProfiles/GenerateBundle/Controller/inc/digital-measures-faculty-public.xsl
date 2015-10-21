@@ -241,18 +241,28 @@
 
   <xsl:template match="dm:ADMIN/dm:DEP">
     <xsl:if test="position() = 1">
-      <dept>
-        <xsl:apply-templates/>
-      </dept><xsl:text>
+      <xsl:choose><xsl:when test=". = 'Ext-Employment &amp; Disability Institute'">
+        <dept>
+          Ext-Yang-Tan Institute on Employment and Disability
+        </dept>
+      </xsl:when><xsl:otherwise>
+        <dept>
+          <xsl:apply-templates/>
+        </dept></xsl:otherwise></xsl:choose><xsl:text>
       </xsl:text>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="dm:ADMIN/dm:JOINT_APPT_DEP">
     <xsl:if test="position() = 1">
-      <dept>
-        <xsl:apply-templates/>
-      </dept><xsl:text>
+      <xsl:choose><xsl:when test=". = 'Ext-Employment &amp; Disability Institute'">
+        <dept>
+          Ext-Yang-Tan Institute on Employment and Disability
+        </dept>
+      </xsl:when><xsl:otherwise>
+        <dept>
+          <xsl:apply-templates/>
+        </dept></xsl:otherwise></xsl:choose><xsl:text>
       </xsl:text>
     </xsl:if>
   </xsl:template>
