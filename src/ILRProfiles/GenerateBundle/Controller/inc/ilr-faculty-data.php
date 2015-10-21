@@ -291,8 +291,8 @@ function ldap2xml($ldap) {
     $faculty_titles[] = 'Research Associate';
     $faculty_titles[] = 'Scholar Visit';
 
-    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82');
-    $deans = array('hck2', 'smb23', 'jeg68', 'rss14');
+    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82', 'so44');
+    $deans = array('kfh7', 'smb23', 'jeg68', 'rss14');
     $faculty_leave = get_faculty_leave();
 
       $result[] = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
