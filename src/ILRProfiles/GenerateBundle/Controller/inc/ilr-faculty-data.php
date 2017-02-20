@@ -477,7 +477,7 @@ function write_raw_ai_data_to_file(&$aws_Client, $aws_bucket, $ldap, &$job_log) 
   fwrite($stream, '<recordcount>' . $count . '</recordcount></Data>');
   fclose($stream);
   set_perms($aws_Client, $aws_bucket, 'ilr_profiles_raw_ai_data.xml');
-  add_log_event($job_log, "Raw Activity Insight data collected");
+  add_log_event($job_log, "Raw Activity Insight data collected for " . $count . " records");
 }
 
 // Aggregated and transformed data to file
