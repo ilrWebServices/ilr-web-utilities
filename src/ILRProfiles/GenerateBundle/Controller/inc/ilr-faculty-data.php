@@ -291,7 +291,7 @@ function ldap2xml($ldap) {
     $faculty_titles[] = 'Research Associate';
     $faculty_titles[] = 'Scholar Visit';
 
-    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82', 'so44');
+    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82', 'so44', 'jds13');
     $deans = array('kfh7', 'ljb239', 'jeg68', 'rss14');
     $faculty_leave = get_faculty_leave();
 
