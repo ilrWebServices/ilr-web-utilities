@@ -62,7 +62,18 @@ Congratulations! You're now ready to use Symfony to work on this application. Fo
 
 [Getting set up with the EB command line tools to manage continuous integration and deployment][4]
 
+You can upload and deploy a version of the codebase through the AWS EBS management dashboard by preparing a package using Git. From the [AWS help page][5]:
+
+### Creating a Source Bundle with Git
+
+> If you're using Git to manage your application source code, use the git archive command to create your source bundle.
+
+> `$ git archive -v -o myapp.zip --format=zip HEAD`
+
+> git archive only includes files that are stored in git, and excludes ignored files and git files. This helps keep your source bundle as small as possible. For more information, go to the git-archive manual page. 
+
 [1]:  http://getcomposer.org/
 [2]:  README_FOR_SYMFONY.md
 [3]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_PHP_symfony2.html
 [4]:  http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-set-up.html
+[5]:  https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-sourcebundle.html#using-features.deployment.source.git
