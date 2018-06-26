@@ -146,21 +146,21 @@ function get_ilr_profiles_transform_xsl($version='default') {
 }
 
 function get_ai_departments() {
-  $URI = '/SchemaIndex/INDIVIDUAL-ACTIVITIES-University/DEPARTMENT';
+  $URI = '/SchemaIndex/INDIVIDUAL-ACTIVITIES-IndustrialLaborRelations/DEPARTMENT';
   return query_ai($URI);
 }
 
 function get_ai_users() {
-  $URI = '/User/INDIVIDUAL-ACTIVITIES-University/COLLEGE:School%20of%20Industrial%20and%20Labor%20Relations';
+  $URI = '/User/INDIVIDUAL-ACTIVITIES-IndustrialLaborRelations';
   return query_ai($URI);
 }
 
 function get_ai_person($netid) {
-  $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-University/USERNAME:' . $netid;
+  $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-IndustrialLaborRelations/USERNAME:' . $netid;
   $result = query_ai($URI);
   // If not found, try with the netid in upper case. Some records in AI are in this state, and XPath is case-sensitive.
   if ( $result->statusCode != 200 ) {
-    $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-University/USERNAME:' . strtoupper($netid);
+    $URI = '/SchemaData/INDIVIDUAL-ACTIVITIES-IndustrialLaborRelations/USERNAME:' . strtoupper($netid);
     $result = query_ai($URI);
   }
   return $result;
