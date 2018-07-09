@@ -415,7 +415,7 @@
                     <xsl:text disable-output-escaping="yes">![CDATA[</xsl:text>
                     <ul class="links">
                     <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[dm:TYPE_OTHER = 'cv']"/>
-                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[(dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv')]"/>
+                    <xsl:apply-templates select="dm:PCI/dm:PCI_WEBSITE[(not(dm:TYPE_OTHER)) or ((dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv'))]"/>
                     </ul>
                     <xsl:text disable-output-escaping="yes">]]</xsl:text>
                     <xsl:text disable-output-escaping="yes">>
@@ -1019,7 +1019,7 @@
     <xsl:value-of select="dm:LNAME"/><xsl:choose><xsl:when test="following-sibling::dm:INTELLCONT_AUTH"><xsl:text>, </xsl:text></xsl:when></xsl:choose>
   </xsl:template>
 
-  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[(dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv')]">
+  <xsl:template match="dm:PCI/dm:PCI_WEBSITE[(not(dm:TYPE_OTHER)) or ((dm:TYPE_OTHER != 'selected works') and (dm:TYPE_OTHER != 'cv'))]">
     <xsl:variable name="hyperlink"><xsl:value-of select="dm:WEBSITE" /></xsl:variable>
     <xsl:if test="not(contains($hyperlink, 'ilr.cornell.edu/directory')) and not($hyperlink = 'http://www.ilr.cornell.edu')">
       <xsl:text>
