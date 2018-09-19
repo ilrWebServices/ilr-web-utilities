@@ -92,4 +92,27 @@ class GenerateController extends Controller
         $job_results = ldap2xml(run_ldap_query($filter));
         return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $job_results));
     }
+
+    public function testTlsAction()
+    {
+      $tls_test = curl_init();
+      curl_setopt_array($tls_test, array( CURLOPT_URL => 'https://tlstest.paypal.com/'
+      , CURLOPT_ENCODING => 'gzip'
+      , CURLOPT_FOLLOWLOCATION => true
+      , CURLOPT_POSTREDIR => true
+      , CURLOPT_RETURNTRANSFER => true
+      ));
+
+      $responseData = curl_exec($tls_test);
+
+      if (curl_errno($tls_test)) {
+        $errorMessage = curl_error($tls_test);
+        // TODO: Handle cURL error
+      } else {
+        $statusCode = curl_getinfo($tls_test, CURLINFO_HTTP_CODE);
+      }
+      curl_close($tls_test);
+
+      return $this->render('ILRProfilesGenerateBundle:Generate:index.html.twig', array('job_results' => $responseData));
+    }
 }

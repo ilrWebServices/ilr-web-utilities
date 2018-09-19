@@ -42,3 +42,7 @@ ilr_profiles_index:
     path: /
     defaults: { _controller: ILRProfilesGenerateBundle:Welcome:index }
 
+ilr_profiles_test_tls:
+    path:  /ilr_profiles_test_tls/
+    defaults: { _controller: ILRProfilesGenerateBundle:Generate:testTls}
+
