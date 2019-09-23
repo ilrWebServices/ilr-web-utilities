@@ -218,7 +218,7 @@ function run_ldap_query($filter) {
 
 function get_ilr_people_from_ldap() {
   //$ldap_filter = LDAP_FILTER;
-  $ldap_filter = '(|(uid=cl672)(uid=dca58)(uid=ajc22)(uid=vmb2)(uid=hck2)(uid=cjm267)(uid=rss14)(uid=mfl55)(uid=bdd28)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library)(cornelledudeptname1=LIBR - ILR Catherwood Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
+  $ldap_filter = '(|(uid=cl672)(uid=dca58)(uid=ajc22)(uid=kfh7)(uid=vmb2)(uid=hck2)(uid=cjm267)(uid=rss14)(uid=mfl55)(uid=bdd28)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library)(cornelledudeptname1=LIBR - ILR Catherwood Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
   if (!strpos($ldap_filter, '(uid=rss14)')) {
     $ldap_filter = str_replace('(uid=hck2)', '(uid=hck2)(uid=rss14)', $ldap_filter);
   }
