@@ -993,7 +993,7 @@
               </xsl:choose>
             </xsl:when>
             <xsl:otherwise><xsl:choose>
-                <xsl:when dm:WEB_ADDRESS != ''">
+                <xsl:when test="dm:WEB_ADDRESS != ''">
                   <a href="{dm:WEB_ADDRESS}"><xsl:value-of select="dm:TITLE"/></a>
                 </xsl:when>
             <xsl:otherwise><xsl:variable name="pub_id" />
