@@ -990,13 +990,14 @@
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:when>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise><xsl:choose>
                 <xsl:when test="dm:ARXIVNUM = '' and dm:DOI = '' and dm:PMID = '' and dm:PMCID = '' and dm:URI_TYPE = '' and dm:WEB_ADDRESS != ''">
                   <a href="{dm:WEB_ADDRESS}"><xsl:value-of select="dm:TITLE"/></a>
                 </xsl:when>
-              </xsl:choose>
-            </xsl:when>
             <xsl:otherwise><xsl:variable name="pub_id" />
-              <xsl:value-of select="dm:TITLE"/></xsl:otherwise></xsl:choose>, </span>
+              <xsl:value-of select="dm:TITLE"/></xsl:otherwise></xsl:choose></xsl:otherwise></xsl:choose>, </span>
         <span class="journal-title"><xsl:value-of select="dm:JOURNAL/dm:JOURNAL_NAME"/>
 . </span>
         <span class="location"><xsl:value-of select="dm:VOLUME"/>
