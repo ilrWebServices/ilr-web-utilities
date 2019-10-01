@@ -218,7 +218,7 @@ function run_ldap_query($filter) {
 
 function get_ilr_people_from_ldap() {
   //$ldap_filter = LDAP_FILTER;
-  $ldap_filter = '(|(uid=cl672)(uid=dca58)(uid=ajc22)(uid=kfh7)(uid=vmb2)(uid=hck2)(uid=cjm267)(uid=rss14)(uid=mfl55)(uid=bdd28)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library)(cornelledudeptname1=LIBR - ILR Catherwood Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
+  $ldap_filter = '(|(uid=cl672)(uid=sdm39)(uid=dca58)(uid=ajc22)(uid=kfh7)(uid=vmb2)(uid=hck2)(uid=cjm267)(uid=rss14)(uid=mfl55)(uid=bdd28)(cornelledudeptname1=LIBR - Catherwood*)(&(|(cornelledudeptname1=LIBR - Hospitality, Labor*)(cornelledudeptname1=LIBR - Management Library)(cornelledudeptname1=LIBR - ILR Catherwood Library))(cornelleducampusaddress=Ives Hall*))(cornelledudeptname1=IL-*)(cornelledudeptname1=E-*)(cornelledudeptname1=ILR*)(cornelledudeptname1=CAHRS))';
   if (!strpos($ldap_filter, '(uid=rss14)')) {
     $ldap_filter = str_replace('(uid=hck2)', '(uid=hck2)(uid=rss14)', $ldap_filter);
   }
@@ -291,7 +291,7 @@ function ldap2xml($ldap) {
     $faculty_titles[] = 'Research Associate';
     $faculty_titles[] = 'Scholar Visit';
 
-    $temp_faculty = array('sdm239','lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82', 'so44', 'jds13','lrs95', 'elg234', 'jn497', 'lhc62', 'mjb62', 'cjb39', 'nah36', 'ak839', 'kal238', 'ko259', 'mcs378', 'ws283', 'jt693', 'aaw43', 'mfl55','no232','kfh7');
+    $temp_faculty = array('lha1', 'gc32', 'ljf8', 'lsg3', 'vmb2', 'zen2', 'srt82', 'so44', 'jds13','lrs95', 'elg234', 'jn497', 'lhc62', 'mjb62', 'cjb39', 'nah36', 'ak839', 'kal238', 'ko259', 'mcs378', 'ws283', 'jt693', 'aaw43', 'mfl55','no232','kfh7');
     $deans = array('ajc22', 'ljb239', 'jeg68', 'rss14');
     $faculty_leave = get_faculty_leave();
 
